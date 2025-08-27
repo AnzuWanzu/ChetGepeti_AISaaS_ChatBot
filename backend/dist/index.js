@@ -4,7 +4,8 @@ const PORT = process.env.PORT;
 //Connections and Listener
 connectDB()
     .then(() => {
-    app.listen(PORT, () => console.log(`Connected to Server and Database || Listening on port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Connected to Server and Database |
+         Listening on port: ${PORT}`));
 })
     .catch((error) => {
     console.log(error);
