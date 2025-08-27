@@ -1,9 +1,11 @@
 import express from "express";
-import dotenv from "dotenv";
+import { config } from "dotenv";
 
-dotenv.config();
-
-const PORT = process.env.PORT || 5000;
+config();
 const app = express();
+const PORT = process.env.PORT;
+//middleware
+app.use(express.json());
 
+//Listener
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
