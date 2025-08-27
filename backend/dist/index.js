@@ -1,5 +1,5 @@
 import app from "./app.js";
-import { connectDB } from "./controllers/connection.js";
+import { connectDB } from "./db/connection.js";
 const PORT = process.env.PORT;
 //Connections and Listener
 connectDB()
