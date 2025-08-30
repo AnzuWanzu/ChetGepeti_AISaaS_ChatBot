@@ -55,7 +55,8 @@ export const userSignup = async (
 
     return res.status(201).json({
       message: "Sucessfully signed up a user: ",
-      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
     });
   } catch (error) {
     console.log("Error in userSignup function: ", error);
@@ -98,12 +99,40 @@ export const userLogin = async (
       signed: true,
     }); //in deployement change the localhost to domain
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Sucessfully logged in a user: ",
-      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
     });
   } catch (error) {
     console.log("Error in userLogin function: ", error);
+    return res.status(500).json({ message: "Error", cause: error.message });
+  }
+};
+
+export const verifyUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    //user token check
+    const user = await User.findById(res.locals.jwtData.id);
+    if (!user) {
+      return res
+        .status(401)
+        .send("User not registered or Token Malfunctioned.");
+    }
+    if (user._id.toString() !== res.locals.jwtData.id) {
+      return res.status(401).send("Permissions did not match.");
+    }
+    return res.status(200).json({
+      message: "OK",
+      name: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    console.log("Error in verifyUser function: ", error);
     return res.status(500).json({ message: "Error", cause: error.message });
   }
 };
