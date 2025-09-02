@@ -1,6 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
 import { configureAI } from "../config/ai-config.js";
+import {
+  createAssistantMessage,
+  createUserMessage,
+  formatChatsForAPI,
+} from "../utils/chatHelpers.js";
 
 export const generateChatCompletion = async (
   req: Request,
@@ -16,12 +21,10 @@ export const generateChatCompletion = async (
         .json({ message: "User not registered OR Token malfunctioned" });
 
     // grab chats of user
-    const chats = user.chats.map(({ role, content }) => ({
-      role: role as "user" | "assistant" | "system",
-      content,
-    }));
-    chats.push({ content: message, role: "user" });
-    user.chats.push({ content: message, role: "user" });
+    const chats = formatChatsForAPI(user.chats);
+    const userMessage = createUserMessage(message);
+    chats.push(userMessage);
+    user.chats.push(userMessage);
 
     // send all chats with new one to Groq API (OpenAI compatible)
     const openai = configureAI();
@@ -32,7 +35,7 @@ export const generateChatCompletion = async (
 
     // get latest response
     const assistantMessage = chatResponse.choices[0]?.message?.content;
-    user.chats.push({ content: assistantMessage, role: "assistant" });
+    user.chats.push(createAssistantMessage(assistantMessage));
     await user.save();
     return res.status(200).json({ chats: user.chats });
   } catch (error) {
