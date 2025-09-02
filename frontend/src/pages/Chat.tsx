@@ -4,56 +4,25 @@ import { red } from "@mui/material/colors";
 import type { ChatMessage } from "../types/chat";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
+import { useRef, useState } from "react";
+import { createUserMessage } from "../utils/chatHelpers";
+import { sendChatRequest } from "../helpers/api-communicator";
 
 const Chat = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const auth = useAuth();
-  const staticChats: ChatMessage[] = [
-    {
-      role: "user",
-      content: "Hello! Can you tell me about yourself?",
-    },
-    {
-      role: "assistant",
-      content:
-        "Hello! I'm Chet Gepeti, an AI assistant based on a character from Divinity Original Sin 2. I'm here to help you with questions, especially about fantasy topics, gaming, and general conversation. How can I assist you today?",
-    },
-    {
-      role: "user",
-      content: "What's your favorite spell in Divinity Original Sin 2?",
-    },
-    {
-      role: "assistant",
-      content:
-        "As a character from Divinity Original Sin 2, I'm quite fond of Teleportation spells! They're incredibly versatile - you can use them tactically in combat to reposition enemies or allies, solve puzzles by moving objects, or simply get out of tough situations. The Source spells are also fascinating, though they require more power to cast.",
-    },
-    {
-      role: "user",
-      content: "Can you help me with coding questions too?",
-    },
-    {
-      role: "assistant",
-      content:
-        "Absolutely! While my character comes from a fantasy world, I can definitely help with coding questions, web development, JavaScript, React, Node.js, and many other programming topics. Feel free to ask me anything - whether it's about fantasy lore or writing code!",
-    },
-    {
-      role: "user",
-      content: "What's the best way to learn React?",
-    },
-    {
-      role: "assistant",
-      content:
-        "Great question! I'd recommend starting with the official React documentation and building small projects. Begin with components, props, and state, then gradually move to hooks like useState and useEffect. Practice by building a todo app, weather app, or even a chat application like this one! The key is hands-on coding and understanding the component lifecycle.",
-    },
-    {
-      role: "user",
-      content: "Tell me about your adventures in Rivellon",
-    },
-    {
-      role: "assistant",
-      content:
-        "Ah, Rivellon! What a magical and dangerous place. I've traveled across Fort Joy, explored the mysterious Reaper's Coast, and delved into the ancient secrets of the Nameless Isle. The Source magic flowing through that world is both a blessing and a curse. I've faced Magisters, demons, and even challenged the very gods themselves! Each journey taught me something new about magic, friendship, and the price of power.",
-    },
-  ];
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const handleSubmit = async () => {
+    const content = inputRef.current?.value as string;
+    if (inputRef && inputRef.current) {
+      inputRef.current.value = "";
+    }
+    const newMessage = createUserMessage(content);
+    setChatMessages((prev) => [...prev, newMessage]);
+    const chatData = await sendChatRequest(content);
+    setChatMessages([...chatData.chats]);
+    //send to api
+  };
   return (
     <Box
       sx={{
@@ -140,7 +109,7 @@ const Chat = () => {
             fontWeight: "600",
           }}
         >
-          Model: llama3-8b-8192
+          Model: llama-3.1-8b-instant
         </Typography>
         <Box
           sx={{
@@ -156,7 +125,7 @@ const Chat = () => {
             boxSizing: "border-box",
           }}
         >
-          {staticChats.map((chat, index) => (
+          {chatMessages.map((chat, index) => (
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
         </Box>
@@ -173,6 +142,7 @@ const Chat = () => {
           }}
         >
           <input
+            ref={inputRef}
             type="text"
             style={{
               flex: 1,
@@ -183,9 +153,14 @@ const Chat = () => {
               color: "white",
               fontSize: "20px",
             }}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit();
+              }
+            }}
           />
           <IconButton sx={{ color: "white", flexShrink: 0 }}>
-            <IoMdSend />
+            <IoMdSend onClick={handleSubmit} />
           </IconButton>
         </Box>
       </Box>

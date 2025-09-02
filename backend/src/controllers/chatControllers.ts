@@ -29,7 +29,7 @@ export const generateChatCompletion = async (
     // send all chats with new one to Groq API (OpenAI compatible)
     const openai = configureAI();
     const chatResponse = await openai.chat.completions.create({
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",
       messages: chats,
     });
 
