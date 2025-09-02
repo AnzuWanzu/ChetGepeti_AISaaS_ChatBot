@@ -125,7 +125,10 @@ const Chat = () => {
           display: "flex",
           flex: { md: 0.8, xs: 1, sm: 1 },
           flexDirection: "column",
-          px: 3,
+          p: 3,
+          boxSizing: "border-box",
+          maxWidth: "100%",
+          overflow: "hidden",
         }}
       >
         <Typography
@@ -144,34 +147,35 @@ const Chat = () => {
             width: "100%",
             height: "60vh",
             borderRadius: 3,
-            mx: "auto",
             display: "flex",
             flexDirection: "column",
             overflow: "scroll",
             overflowX: "hidden",
             overflowY: "auto",
             scrollBehavior: "smooth",
+            boxSizing: "border-box",
           }}
         >
           {staticChats.map((chat, index) => (
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
         </Box>
-        <div
-          style={{
+        <Box
+          sx={{
             width: "100%",
-            padding: "20px",
-            borderRadius: 8,
-            backgroundColor: "rgb(17, 27,39)",
+            p: 2.5,
+            borderRadius: 3,
+            bgcolor: "rgb(17, 27, 39)",
             display: "flex",
-            margin: "auto",
+            mt: 2,
+            boxSizing: "border-box",
+            alignItems: "center",
           }}
         >
-          {" "}
           <input
             type="text"
             style={{
-              width: "100%",
+              flex: 1,
               backgroundColor: "transparent",
               padding: "10px",
               border: "none",
@@ -180,10 +184,10 @@ const Chat = () => {
               fontSize: "20px",
             }}
           />
-          <IconButton sx={{ ml: "auto", color: "white" }}>
+          <IconButton sx={{ color: "white", flexShrink: 0 }}>
             <IoMdSend />
           </IconButton>
-        </div>
+        </Box>
       </Box>
     </Box>
   );
