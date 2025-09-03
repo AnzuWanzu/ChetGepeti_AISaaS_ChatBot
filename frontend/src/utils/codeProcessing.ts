@@ -3,6 +3,37 @@ export function extractCodeFromString(message: string) {
     const blocks = message.split("```");
     return blocks;
   }
+
+  const codePattern =
+    /\n(javascript|js|typescript|ts|python|py|java|cpp|c\+\+|csharp|c#|php|ruby|go|rust|swift|kotlin|sql|html|css|scss|json|xml|yaml|bash|shell)\s+(.+?)(?=\n\n|\n[A-Z]|\n\*\*|$)/gs;
+
+  if (codePattern.test(message)) {
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    codePattern.lastIndex = 0;
+
+    while ((match = codePattern.exec(message)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(message.substring(lastIndex, match.index));
+      }
+
+      // Add the code block with proper formatting
+      parts.push(""); // Empty block before code (for alternating pattern)
+      parts.push(`${match[1]}\n${match[2]}`); // Language + code
+      parts.push(""); // Empty block after code
+
+      lastIndex = match.index + match[0].length;
+    }
+    if (lastIndex < message.length) {
+      parts.push(message.substring(lastIndex));
+    }
+
+    return parts.filter((part) => part !== undefined);
+  }
+
+  return null;
 }
 
 export function detectProgrammingLanguage(code: string): string {
@@ -47,19 +78,63 @@ export function detectProgrammingLanguage(code: string): string {
 }
 
 export function isCodeBlock(str: string): boolean {
-  if (
-    str.includes("=") ||
-    str.includes(";") ||
-    str.includes("[") ||
-    str.includes("]") ||
-    str.includes("{") ||
-    str.includes("}") ||
-    str.includes("#") ||
-    str.includes("//")
-  ) {
-    return true;
+  if (!str || typeof str !== "string") return false;
+
+  // Check for ``` wrapped code blocks
+  if (str.includes("```")) return true;
+
+  // Check for language indicators at the beginning
+  const codeIndicators = [
+    "javascript",
+    "js",
+    "typescript",
+    "ts",
+    "python",
+    "py",
+    "java",
+    "cpp",
+    "c++",
+    "csharp",
+    "c#",
+    "php",
+    "ruby",
+    "go",
+    "rust",
+    "swift",
+    "kotlin",
+    "sql",
+    "html",
+    "css",
+    "scss",
+    "json",
+    "xml",
+    "yaml",
+    "bash",
+    "shell",
+  ];
+
+  const trimmed = str.trim().toLowerCase();
+
+  // Check if starts with a language identifier
+  for (const lang of codeIndicators) {
+    if (trimmed.startsWith(lang + " ") || trimmed.startsWith(lang + "\n")) {
+      return true;
+    }
   }
-  return false;
+
+  // Check for common code patterns
+  const codePatterns = [
+    /^(function|const|let|var|class|import|export|if|for|while|def|public|private|package)/m,
+    /[{}();][\s\S]*[{}();]/,
+    /^\s*(def|class|import|from|function|const|let|var)\s+/m,
+    /console\.(log|error|warn|info)/,
+    /print\s*\(/,
+    /\$\{.*\}/,
+    /\/\/|\/\*|\*\/|#\s/,
+    /<[^>]+>.*<\/[^>]+>/,
+  ];
+
+  return codePatterns.some((pattern) => pattern.test(str));
 }
 
 export function formatCodeBlock(code: string): string {

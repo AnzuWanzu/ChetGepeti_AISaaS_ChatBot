@@ -8,75 +8,97 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
   const segments: FormattedTextSegment[] = [];
   let currentIndex = 0;
 
-  const patterns = [
-    { type: "bold" as const, regex: /\*\*(.*?)\*\*/g },
-    { type: "italic" as const, regex: /\*(.*?)\*/g },
-    { type: "code" as const, regex: /`(.*?)`/g },
-    { type: "link" as const, regex: /\[([^\]]+)\]\(([^)]+)\)/g },
-  ];
+  // Process text sequentially to avoid overlapping matches
+  while (currentIndex < text.length) {
+    const remainingText = text.slice(currentIndex);
 
-  // Find all matches
-  const allMatches: Array<{
-    type: "text" | "bold" | "italic" | "code" | "link";
-    start: number;
-    end: number;
-    content: string;
-    url?: string;
-  }> = [];
+    // Try to match patterns in order of priority
+    let matched = false;
 
-  patterns.forEach((pattern) => {
-    let match;
-    while ((match = pattern.regex.exec(text)) !== null) {
-      allMatches.push({
-        type: pattern.type,
-        start: match.index,
-        end: match.index + match[0].length,
-        content: match[1],
-        url: pattern.type === "link" ? match[2] : undefined,
+    // Bold text (**text**)
+    const boldMatch = remainingText.match(/^\*\*(.*?)\*\*/);
+    if (boldMatch) {
+      segments.push({
+        type: "bold",
+        content: boldMatch[1],
       });
+      currentIndex += boldMatch[0].length;
+      matched = true;
     }
-  });
 
-  allMatches.sort((a, b) => a.start - b.start);
-
-  allMatches.forEach((match) => {
-    if (match.start > currentIndex) {
-      const textBefore = text.slice(currentIndex, match.start);
-      if (textBefore) {
+    // Italic text (*text*) - but not if it's part of bold
+    else if (
+      remainingText.match(/^\*[^*].*?[^*]\*/) ||
+      remainingText.match(/^\*[^*]\*/)
+    ) {
+      const italicMatch = remainingText.match(/^\*(.*?)\*/);
+      if (italicMatch) {
         segments.push({
-          type: "text",
-          content: textBefore,
+          type: "italic",
+          content: italicMatch[1],
         });
+        currentIndex += italicMatch[0].length;
+        matched = true;
       }
     }
 
-    segments.push({
-      type: match.type,
-      content: match.content,
-      url: match.url,
-    });
+    // Code text (`text`)
+    else {
+      const codeMatch = remainingText.match(/^`(.*?)`/);
+      if (codeMatch) {
+        segments.push({
+          type: "code",
+          content: codeMatch[1],
+        });
+        currentIndex += codeMatch[0].length;
+        matched = true;
+      }
+    }
 
-    currentIndex = match.end;
-  });
+    // Link text [text](url)
+    if (!matched) {
+      const linkMatch = remainingText.match(/^\[([^\]]+)\]\(([^)]+)\)/);
+      if (linkMatch) {
+        segments.push({
+          type: "link",
+          content: linkMatch[1],
+          url: linkMatch[2],
+        });
+        currentIndex += linkMatch[0].length;
+        matched = true;
+      }
+    }
 
-  if (currentIndex < text.length) {
-    const remainingText = text.slice(currentIndex);
-    if (remainingText) {
-      segments.push({
-        type: "text",
-        content: remainingText,
-      });
+    // Regular text
+    if (!matched) {
+      // Find the next special character or take one character
+      const nextSpecialIndex = remainingText.search(/[\*`\[]/);
+      const textToAdd =
+        nextSpecialIndex === -1
+          ? remainingText
+          : remainingText.slice(
+              0,
+              nextSpecialIndex === 0 ? 1 : nextSpecialIndex
+            );
+
+      if (
+        segments.length > 0 &&
+        segments[segments.length - 1].type === "text"
+      ) {
+        // Combine with previous text segment
+        segments[segments.length - 1].content += textToAdd;
+      } else {
+        segments.push({
+          type: "text",
+          content: textToAdd,
+        });
+      }
+
+      currentIndex += textToAdd.length;
     }
   }
 
-  if (segments.length === 0) {
-    segments.push({
-      type: "text",
-      content: text,
-    });
-  }
-
-  return segments;
+  return segments.length > 0 ? segments : [{ type: "text", content: text }];
 }
 
 export function hasMarkdownFormatting(text: string): boolean {
