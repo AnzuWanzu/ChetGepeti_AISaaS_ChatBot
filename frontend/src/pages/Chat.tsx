@@ -4,9 +4,10 @@ import { red } from "@mui/material/colors";
 import type { ChatMessage } from "../types/chat";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { createUserMessage } from "../utils/chatHelpers";
-import { sendChatRequest } from "../helpers/api-communicator";
+import { getuUserChats, sendChatRequest } from "../helpers/api-communicator";
+import toast from "react-hot-toast";
 
 const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -33,6 +34,21 @@ const Chat = () => {
     setChatMessages([...chatData.chats]);
     //send to api
   };
+  useLayoutEffect(() => {
+    if (auth?.isLoggedIn && auth.user) {
+      toast.loading("Loading Chats", { id: "loadchats" });
+    }
+    getuUserChats()
+      .then((data) => {
+        setChatMessages([...data.chats]);
+        toast.success("Sucessfully Loaded Chats", { id: "loadchats" });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Loading Failed", { id: "loadchats" });
+      });
+  }, [auth]);
+
   return (
     <Box
       sx={{

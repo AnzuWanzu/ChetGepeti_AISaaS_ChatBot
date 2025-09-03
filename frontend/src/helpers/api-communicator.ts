@@ -26,3 +26,12 @@ export const sendChatRequest = async (message: String) => {
   const data = await res.data;
   return data;
 };
+
+export const getuUserChats = async () => {
+  const res = await axios.get("/chat/all-chats");
+  if (res.status !== 200) {
+    throw new Error("Unable to send all chats of user");
+  }
+  const data = await res.data;
+  return data;
+};
