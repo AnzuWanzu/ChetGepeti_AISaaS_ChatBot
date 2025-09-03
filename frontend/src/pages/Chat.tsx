@@ -6,7 +6,11 @@ import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { createUserMessage } from "../utils/chatHelpers";
-import { getuUserChats, sendChatRequest } from "../helpers/api-communicator";
+import {
+  deleteUserChats,
+  getuUserChats,
+  sendChatRequest,
+} from "../helpers/api-communicator";
 import toast from "react-hot-toast";
 
 const Chat = () => {
@@ -34,6 +38,19 @@ const Chat = () => {
     setChatMessages([...chatData.chats]);
     //send to api
   };
+
+  const handleDeleteChats = async () => {
+    try {
+      toast.loading("Deleting Chats", { id: "loadchats" });
+      await deleteUserChats();
+      setChatMessages([]);
+      toast.success("Deleted Chats Successfully", { id: "loadchats" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Deleting Chats Failed", { id: "loadchats" });
+    }
+  };
+
   useLayoutEffect(() => {
     if (auth?.isLoggedIn && auth.user) {
       toast.loading("Loading Chats", { id: "loadchats" });
@@ -98,6 +115,7 @@ const Chat = () => {
             Gepeti is my custom character in Divinity Original Sin 2.
           </Typography>
           <Button
+            onClick={handleDeleteChats}
             sx={{
               width: "200px",
               my: "auto",
