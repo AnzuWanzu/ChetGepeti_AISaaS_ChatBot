@@ -4,14 +4,24 @@ import { red } from "@mui/material/colors";
 import type { ChatMessage } from "../types/chat";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { createUserMessage } from "../utils/chatHelpers";
 import { sendChatRequest } from "../helpers/api-communicator";
 
 const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+
+  // auto-scroll of chat to bottom (recent messages)
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chatMessages]);
+
   const handleSubmit = async () => {
     const content = inputRef.current?.value as string;
     if (inputRef && inputRef.current) {
@@ -112,6 +122,7 @@ const Chat = () => {
           Model: llama-3.1-8b-instant
         </Typography>
         <Box
+          ref={chatContainerRef}
           sx={{
             width: "100%",
             height: "60vh",
