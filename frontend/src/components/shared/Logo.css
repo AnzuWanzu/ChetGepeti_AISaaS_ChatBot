@@ -1,0 +1,72 @@
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes subtleFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(95, 126, 161, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(95, 126, 161, 0.6)) drop-shadow(0 0 25px rgba(76, 98, 123, 0.4));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(95, 126, 161, 0.3));
+  }
+}
+
+.logo-container {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+.logo-main-text {
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(45deg, #4c627b, #5f7ea1, #ffffff, #4c627b);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite,
+    subtleFloat 2s ease-in-out infinite;
+  text-shadow: none;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.logo-container:hover .logo-main-text {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 10px rgba(95, 126, 161, 0.5));
+}
+
+.logo-image {
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.logo-container:hover .logo-image {
+  filter: drop-shadow(0 0 15px rgba(95, 126, 161, 0.6));
+}

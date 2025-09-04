@@ -40,6 +40,7 @@ const Login = () => {
       justifyContent="center"
       alignItems="center"
       className="login-page"
+      marginTop={10}
     >
       <Box
         padding={4}

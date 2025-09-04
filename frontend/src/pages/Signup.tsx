@@ -41,6 +41,7 @@ const Signup = () => {
       justifyContent="center"
       alignItems="center"
       className="signup-page"
+      marginTop={10}
     >
       <Box
         padding={4}

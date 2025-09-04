@@ -1,9 +1,11 @@
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import "./Logo.css";
 
 const Logo = () => {
   return (
     <div
+      className="logo-container"
       style={{
         display: "flex",
         marginRight: "auto",
@@ -18,17 +20,18 @@ const Logo = () => {
           alt="chetgepeti"
           width={"70px"}
           height={"70px"}
+          className="logo-image"
         />
       </Link>
       <Typography
         sx={{
           display: { md: "block", sm: "none", xs: "none" },
           mr: "auto",
-          fontWeight: "800",
-          textShadow: "2px 2px 20px #000",
+          fontSize: "24px",
+          letterSpacing: "1px",
         }}
       >
-        <span style={{ fontSize: "30px" }}>Chet </span>- GEPETI
+        <span className="logo-main-text">Chet Gepeti</span>
       </Typography>
     </div>
   );
