@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext.tsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../components/shared/FormAnimations.css";
 
 const Signup = () => {
   const auth = useAuth();
@@ -39,6 +40,7 @@ const Signup = () => {
       flex={1}
       justifyContent="center"
       alignItems="center"
+      className="signup-page"
     >
       <Box
         padding={4}
@@ -46,6 +48,7 @@ const Signup = () => {
         justifyContent="center"
         alignItems="center"
         flex={0.4}
+        className="image-container"
       >
         <img
           src="Chet_Signin.png"
@@ -59,9 +62,11 @@ const Signup = () => {
         justifyContent={"center"}
         alignItems={"center"}
         padding={2}
+        className="form-container"
       >
         <form
           onSubmit={handleSubmit}
+          className="form-content"
           style={{
             margin: "auto",
             padding: "50px",
@@ -111,7 +116,7 @@ const Signup = () => {
               }}
               endIcon={<IoIosLogIn />}
             >
-              Sign In
+              Sign Up
             </Button>
           </Box>
         </form>

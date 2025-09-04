@@ -1,0 +1,63 @@
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Default animations for both forms */
+.form-container {
+  animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-content {
+  animation: fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+.image-container {
+  animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+/* Specific animations for Login page (slide from right) */
+.login-page .form-container {
+  animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-page .image-container {
+  animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+/* Specific animations for Signup page (slide from left) */
+.signup-page .form-container {
+  animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.signup-page .image-container {
+  animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
