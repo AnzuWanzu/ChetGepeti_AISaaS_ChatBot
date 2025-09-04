@@ -26,7 +26,7 @@ const Home = () => {
             display: "flex",
             flexDirection: { md: "row", xs: "column", sm: "column" },
             gap: 5,
-            my: 10,
+            my: 3,
           }}
         >
           <img
@@ -43,11 +43,11 @@ const Home = () => {
             style={{
               display: "flex",
               margin: "auto",
-              width: isBelowMd ? "80%" : "60%",
+              width: isBelowMd ? "50%" : "50%",
               borderRadius: 20,
               boxShadow: "-5px -5px 105px #4da777ff",
-              marginTop: 20,
-              marginBottom: 20,
+              marginTop: 10,
+              marginBottom: 10,
               padding: 10,
             }}
           />

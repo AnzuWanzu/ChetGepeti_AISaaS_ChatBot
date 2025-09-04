@@ -69,7 +69,7 @@ const ChatItem = ({ content, role }: ChatMessage) => {
       }}
     >
       <Avatar sx={{ ml: "0" }}>
-        <img src="openai.png" alt="openai" width={"30px"} />
+        <img src="chet_gepeti.png" alt="openai" width={"30px"} />
       </Avatar>
       <Box sx={{ flex: 1 }}>{renderContent(content)}</Box>
     </Box>
