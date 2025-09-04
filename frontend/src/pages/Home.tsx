@@ -14,7 +14,6 @@ const Home = () => {
           flexDirection: "column",
           alignItems: "center",
           mx: "auto",
-          mt: 3,
         }}
       >
         <Box>
@@ -26,7 +25,7 @@ const Home = () => {
             display: "flex",
             flexDirection: { md: "row", xs: "column", sm: "column" },
             gap: 5,
-            my: 3,
+            my: 2,
           }}
         >
           <img
@@ -46,9 +45,6 @@ const Home = () => {
               width: isBelowMd ? "50%" : "50%",
               borderRadius: 20,
               boxShadow: "-5px -5px 105px #4da777ff",
-              marginTop: 10,
-              marginBottom: 10,
-              padding: 10,
             }}
           />
         </Box>

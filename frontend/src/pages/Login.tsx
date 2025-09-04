@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext.tsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/shared/FormAnimations.css";
+import "../components/shared/FormAnimations.css";
 
 const Login = () => {
   const auth = useAuth();
@@ -34,16 +35,23 @@ const Login = () => {
   return (
     <Box
       width={"100%"}
-      height={"100%"}
       display="flex"
       flex={1}
       justifyContent="center"
       alignItems="center"
       className="login-page"
-      marginTop={10}
+      sx={{
+        padding: 0,
+        margin: 0,
+        overflow: "hidden",
+        position: "relative",
+        height: "100%",
+        minHeight: "80vh",
+      }}
     >
       <Box
-        padding={4}
+        marginTop={-5}
+        padding={0}
         display={{ md: "flex", sm: "none", xs: "none" }}
         justifyContent="center"
         alignItems="center"
@@ -61,20 +69,27 @@ const Login = () => {
         flex={{ xs: 1, md: 0.6 }}
         justifyContent={"center"}
         alignItems={"center"}
-        padding={2}
+        sx={{
+          width: "100%",
+          maxWidth: { xs: "100%", sm: "450px", md: "550px", lg: "600px" },
+          height: "100%",
+        }}
         className="form-container"
       >
-        <form
+        <Box
+          component="form"
           onSubmit={handleSubmit}
           className="form-content"
-          style={{
-            margin: "auto",
-            padding: "60px",
+          sx={{
             background: "#202934ff",
-            boxShadow: "10px 10px 20px #000",
-            borderRadius: "15px",
+            boxShadow: "6px 6px 12px rgba(0,0,0,0.4)",
+            borderRadius: "10px",
             border: "none",
-            minWidth: "480px",
+            width: "100%",
+            maxWidth: { xs: "340px", sm: "400px", md: "480px", lg: "520px" },
+            maxHeight: "100vh",
+            overflow: "auto",
+            margin: 0,
           }}
         >
           <Box
@@ -82,14 +97,23 @@ const Login = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              gap: 2,
+              gap: { xs: "6px", sm: "8px", md: "10px", lg: "12px" },
+              padding: {
+                xs: "12px 14px",
+                sm: "14px 16px",
+                md: "16px 18px",
+                lg: "18px 20px",
+              },
             }}
           >
             <Typography
-              variant="h3"
-              textAlign="center"
-              padding={3}
-              fontWeight={600}
+              sx={{
+                fontSize: { xs: "18px", sm: "24px", md: "30px", lg: "35px" },
+                textAlign: "center",
+                marginBottom: { xs: "0px", sm: "2px", md: "4px", lg: "6px" },
+                fontWeight: 700,
+                color: "white",
+              }}
             >
               Login
             </Typography>
@@ -99,13 +123,13 @@ const Login = () => {
               variant="contained"
               type="submit"
               sx={{
-                px: 3,
-                py: 2,
-                mt: 3,
-                width: "500px",
-                height: "56px",
-                borderRadius: 3,
-                fontSize: "18px",
+                px: { xs: 1.5, sm: 2, md: 2.5, lg: 3 },
+                py: { xs: "6px", sm: "8px", md: "10px", lg: "12px" },
+                mt: { xs: "8px", sm: "10px", md: "12px", lg: "14px" },
+                width: "100%",
+                height: { xs: "38px", sm: "42px", md: "46px", lg: "50px" },
+                borderRadius: { xs: 1, sm: 1.5, md: 2, lg: 2.5 },
+                fontSize: { xs: "14px", sm: "15px", md: "16px", lg: "17px" },
                 fontWeight: 600,
                 bgcolor: "#4c627bff",
                 ":hover": {
@@ -118,7 +142,7 @@ const Login = () => {
               Login
             </Button>
           </Box>
-        </form>
+        </Box>
       </Box>
     </Box>
   );

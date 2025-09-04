@@ -6,12 +6,12 @@ const Footer = () => {
       <div
         style={{
           width: "100%",
-          minHeight: "20vh",
-          maxHeight: "20vh",
-          marginTop: 40,
+          minHeight: "10vh",
+          maxHeight: "10vh",
+          marginTop: 20,
         }}
       >
-        <p style={{ fontSize: "30px", textAlign: "center", padding: "20px" }}>
+        <p style={{ fontSize: "20px", textAlign: "center", padding: "20px" }}>
           Made by :
           <span>
             <Link

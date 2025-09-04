@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext.tsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/shared/FormAnimations.css";
+import "../components/shared/FormAnimations.css";
 
 const Signup = () => {
   const auth = useAuth();
@@ -35,16 +36,21 @@ const Signup = () => {
   return (
     <Box
       width={"100%"}
-      height={"100%"}
       display="flex"
-      flex={1}
       justifyContent="center"
       alignItems="center"
       className="signup-page"
-      marginTop={10}
+      sx={{
+        padding: 0,
+        margin: 0,
+        overflow: "hidden",
+        position: "relative",
+        height: "100%",
+        minHeight: "80vh",
+      }}
     >
       <Box
-        padding={4}
+        padding={0}
         display={{ md: "flex", sm: "none", xs: "none" }}
         justifyContent="center"
         alignItems="center"
@@ -62,20 +68,28 @@ const Signup = () => {
         flex={{ xs: 1, md: 0.6 }}
         justifyContent={"center"}
         alignItems={"center"}
-        padding={2}
+        sx={{
+          width: "100%",
+          maxWidth: { xs: "100%", sm: "430px", md: "530px", lg: "580px" },
+          height: "100%",
+        }}
         className="form-container"
       >
-        <form
+        <Box
+          marginTop={-10}
+          component="form"
           onSubmit={handleSubmit}
           className="form-content"
-          style={{
-            margin: "auto",
-            padding: "50px",
+          sx={{
             background: "#1f3025ff",
-            boxShadow: "10px 10px 20px #000",
-            borderRadius: "15px",
+            boxShadow: "6px 6px 12px rgba(0,0,0,0.4)",
+            borderRadius: "10px",
             border: "none",
-            minWidth: "480px",
+            width: "100%",
+            maxWidth: { xs: "330px", sm: "380px", md: "460px", lg: "500px" },
+            maxHeight: "100vh",
+            overflow: "auto",
+            margin: 0,
           }}
         >
           <Box
@@ -83,14 +97,23 @@ const Signup = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              gap: 2,
+              gap: { xs: "4px", sm: "6px", md: "8px", lg: "10px" },
+              padding: {
+                xs: "10px 12px",
+                sm: "12px 14px",
+                md: "14px 16px",
+                lg: "16px 18px",
+              },
             }}
           >
             <Typography
-              variant="h3"
-              textAlign="center"
-              padding={3}
-              fontWeight={600}
+              sx={{
+                fontSize: { xs: "18px", sm: "24px", md: "30px", lg: "35px" },
+                textAlign: "center",
+                marginBottom: { xs: "0px", sm: "0px", md: "2px", lg: "2px" },
+                fontWeight: 700,
+                color: "white",
+              }}
             >
               Sign Up
             </Typography>
@@ -101,13 +124,13 @@ const Signup = () => {
               variant="contained"
               type="submit"
               sx={{
-                px: 3,
-                py: 2,
-                mt: 3,
-                width: "500px",
-                height: "56px",
-                borderRadius: 3,
-                fontSize: "18px",
+                px: { xs: 1.5, sm: 2, md: 2.5, lg: 3 },
+                py: { xs: "4px", sm: "6px", md: "8px", lg: "10px" },
+                mt: { xs: "4px", sm: "6px", md: "8px", lg: "8px" },
+                width: "100%",
+                height: { xs: "34px", sm: "38px", md: "42px", lg: "46px" },
+                borderRadius: { xs: 1, sm: 1.5, md: 2, lg: 2.5 },
+                fontSize: { xs: "13px", sm: "14px", md: "15px", lg: "16px" },
                 fontWeight: 600,
                 bgcolor: "#3c644dff",
                 ":hover": {
@@ -120,7 +143,7 @@ const Signup = () => {
               Sign Up
             </Button>
           </Box>
-        </form>
+        </Box>
       </Box>
     </Box>
   );
