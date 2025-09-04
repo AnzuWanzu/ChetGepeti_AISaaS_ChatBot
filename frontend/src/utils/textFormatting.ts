@@ -8,14 +8,11 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
   const segments: FormattedTextSegment[] = [];
   let currentIndex = 0;
 
-  // Process text sequentially to avoid overlapping matches
   while (currentIndex < text.length) {
     const remainingText = text.slice(currentIndex);
 
-    // Try to match patterns in order of priority
     let matched = false;
 
-    // Bold text (**text**)
     const boldMatch = remainingText.match(/^\*\*(.*?)\*\*/);
     if (boldMatch) {
       segments.push({
@@ -26,12 +23,8 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
       matched = true;
     }
 
-    // Italic text (*text*) - but not if it's part of bold
-    else if (
-      remainingText.match(/^\*[^*].*?[^*]\*/) ||
-      remainingText.match(/^\*[^*]\*/)
-    ) {
-      const italicMatch = remainingText.match(/^\*(.*?)\*/);
+    if (!matched) {
+      const italicMatch = remainingText.match(/^\*([^*]+?)\*/);
       if (italicMatch) {
         segments.push({
           type: "italic",
@@ -40,10 +33,7 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
         currentIndex += italicMatch[0].length;
         matched = true;
       }
-    }
-
-    // Code text (`text`)
-    else {
+    } else {
       const codeMatch = remainingText.match(/^`(.*?)`/);
       if (codeMatch) {
         segments.push({
@@ -55,7 +45,6 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
       }
     }
 
-    // Link text [text](url)
     if (!matched) {
       const linkMatch = remainingText.match(/^\[([^\]]+)\]\(([^)]+)\)/);
       if (linkMatch) {
@@ -68,10 +57,7 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
         matched = true;
       }
     }
-
-    // Regular text
     if (!matched) {
-      // Find the next special character or take one character
       const nextSpecialIndex = remainingText.search(/[\*`\[]/);
       const textToAdd =
         nextSpecialIndex === -1
@@ -85,7 +71,6 @@ export function parseMarkdownText(text: string): FormattedTextSegment[] {
         segments.length > 0 &&
         segments[segments.length - 1].type === "text"
       ) {
-        // Combine with previous text segment
         segments[segments.length - 1].content += textToAdd;
       } else {
         segments.push({
@@ -115,7 +100,7 @@ export function hasMarkdownFormatting(text: string): boolean {
 export function stripMarkdownFormatting(text: string): string {
   return text
     .replace(/\*\*(.*?)\*\*/g, "$1")
-    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/\*([^*]+?)\*/g, "$1")
     .replace(/`(.*?)`/g, "$1")
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1");
 }

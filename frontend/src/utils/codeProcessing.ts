@@ -19,10 +19,9 @@ export function extractCodeFromString(message: string) {
         parts.push(message.substring(lastIndex, match.index));
       }
 
-      // Add the code block with proper formatting
-      parts.push(""); // Empty block before code (for alternating pattern)
-      parts.push(`${match[1]}\n${match[2]}`); // Language + code
-      parts.push(""); // Empty block after code
+      parts.push("");
+      parts.push(`${match[1]}\n${match[2]}`);
+      parts.push("");
 
       lastIndex = match.index + match[0].length;
     }
@@ -80,10 +79,8 @@ export function detectProgrammingLanguage(code: string): string {
 export function isCodeBlock(str: string): boolean {
   if (!str || typeof str !== "string") return false;
 
-  // Check for ``` wrapped code blocks
   if (str.includes("```")) return true;
 
-  // Check for language indicators at the beginning
   const codeIndicators = [
     "javascript",
     "js",
@@ -115,14 +112,12 @@ export function isCodeBlock(str: string): boolean {
 
   const trimmed = str.trim().toLowerCase();
 
-  // Check if starts with a language identifier
   for (const lang of codeIndicators) {
     if (trimmed.startsWith(lang + " ") || trimmed.startsWith(lang + "\n")) {
       return true;
     }
   }
 
-  // Check for common code patterns
   const codePatterns = [
     /^(function|const|let|var|class|import|export|if|for|while|def|public|private|package)/m,
     /[{}();][\s\S]*[{}();]/,
