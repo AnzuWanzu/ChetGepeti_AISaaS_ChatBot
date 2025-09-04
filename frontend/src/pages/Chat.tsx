@@ -8,7 +8,7 @@ import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { createUserMessage } from "../utils/chatHelpers";
 import {
   deleteUserChats,
-  getuUserChats,
+  getUserChats,
   sendChatRequest,
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
@@ -57,7 +57,7 @@ const Chat = () => {
     if (auth?.isLoggedIn && auth.user) {
       toast.loading("Loading Chats", { id: "loadchats" });
     }
-    getuUserChats()
+    getUserChats()
       .then((data) => {
         setChatMessages([...data.chats]);
         toast.success("Sucessfully Loaded Chats", { id: "loadchats" });
