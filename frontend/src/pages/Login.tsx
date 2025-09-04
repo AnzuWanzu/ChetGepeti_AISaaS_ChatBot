@@ -90,6 +90,7 @@ const Login = () => {
             <CustomizedInput type="email" name="email" label="Email" />
             <CustomizedInput type="password" name="password" label="Password" />
             <Button
+              variant="contained"
               type="submit"
               sx={{
                 px: 3,
@@ -102,8 +103,8 @@ const Login = () => {
                 fontWeight: 600,
                 bgcolor: "#4c627bff",
                 ":hover": {
-                  bgcolor: "#5e7a9aff",
-                  color: "black",
+                  bgcolor: "#5f7ea1ff",
+                  color: "white",
                 },
               }}
               endIcon={<IoIosLogIn />}

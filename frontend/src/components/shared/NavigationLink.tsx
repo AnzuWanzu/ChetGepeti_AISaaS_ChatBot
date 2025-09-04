@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./NavigationLink.css";
 
 type Props = {
   to: string;
@@ -6,15 +7,23 @@ type Props = {
   text: string;
   textColor: string;
   onClick?: () => Promise<void>;
+  isActive?: boolean;
+  onToggle?: () => void;
 };
 
 const NavigationLink = (props: Props) => {
   return (
     <Link
-      onClick={props.onClick}
-      className="nav-link"
+      onClick={() => {
+        props.onToggle?.();
+        props.onClick?.();
+      }}
       to={props.to}
-      style={{ background: props.bg, color: props.textColor }}
+      className={`navigation-link ${props.isActive ? "active" : ""}`}
+      style={{
+        background: props.bg,
+        color: props.textColor,
+      }}
     >
       {props.text}
     </Link>
