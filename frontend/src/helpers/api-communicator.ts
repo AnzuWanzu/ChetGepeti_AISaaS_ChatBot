@@ -18,6 +18,15 @@ export const checkAuthStatus = async () => {
   return data;
 };
 
+export const logoutUser = async () => {
+  const res = await axios.get("/user/logout");
+  if (res.status !== 200) {
+    throw new Error("Unable to logout user");
+  }
+  const data = await res.data;
+  return data;
+};
+
 export const sendChatRequest = async (message: String) => {
   const res = await axios.post("/chat/new", { message });
   if (res.status !== 200) {
