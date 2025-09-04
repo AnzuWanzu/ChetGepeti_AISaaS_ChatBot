@@ -10,6 +10,7 @@ import {
   loginUser,
   logoutUser,
 } from "../helpers/api-communicator";
+import { useNavigate } from "react-router-dom";
 
 type User = {
   name: string;
@@ -25,6 +26,7 @@ type UserAuth = {
 const AuthContext = createContext<UserAuth | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -52,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await logoutUser();
     setIsLoggedIn(false);
     setUser(null);
-    window.location.reload();
+    navigate("/login");
   };
 
   const value = {

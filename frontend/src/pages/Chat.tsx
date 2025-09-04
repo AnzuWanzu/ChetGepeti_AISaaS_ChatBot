@@ -12,12 +12,14 @@ import {
   sendChatRequest,
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const navigate = useNavigate();
 
   // auto-scroll of chat to bottom (recent messages)
   useEffect(() => {
@@ -65,6 +67,12 @@ const Chat = () => {
         toast.error("Loading Failed", { id: "loadchats" });
       });
   }, [auth]);
+
+  useEffect(() => {
+    if (!auth?.user) {
+      navigate("/login");
+    }
+  }, [auth, navigate]);
 
   return (
     <Box
