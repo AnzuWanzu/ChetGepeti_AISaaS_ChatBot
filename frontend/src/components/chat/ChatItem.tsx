@@ -62,7 +62,7 @@ const ChatItem = ({ content, role }: ChatMessage) => {
       sx={{
         display: "flex",
         p: 2,
-        bgcolor: "#004d5612",
+        bgcolor: "#2e312dff",
         gap: 2,
         borderRadius: 2,
         my: 1,
@@ -74,7 +74,7 @@ const ChatItem = ({ content, role }: ChatMessage) => {
       <Box sx={{ flex: 1 }}>{renderContent(content)}</Box>
     </Box>
   ) : (
-    <Box sx={{ display: "flex", p: 2, bgcolor: "#004d56", gap: 2 }}>
+    <Box sx={{ display: "flex", p: 2, bgcolor: "#181915ff", gap: 2 }}>
       <Avatar sx={{ ml: "0", bgcolor: "black", color: "white" }}>
         {auth?.user?.name[0]}
         {auth?.user?.name.split(" ")[1][0]}

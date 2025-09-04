@@ -7,7 +7,7 @@ const TypingAnimation = () => {
       wrapper="span"
       speed={50}
       style={{
-        fontSize: "70px",
+        fontSize: "60px",
         color: "white",
         display: "inline-block",
         textShadow: "1px 1px 20px #000",

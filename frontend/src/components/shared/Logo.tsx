@@ -9,15 +9,15 @@ const Logo = () => {
         marginRight: "auto",
         alignItems: "center",
         gap: "15px",
+        marginTop: "10px",
       }}
     >
       <Link to={"/"}>
         <img
-          src="openai.png"
-          alt="openai"
-          width={"30px"}
-          height={"30px"}
-          className="image-inverted"
+          src="chet_gepeti.png"
+          alt="chetgepeti"
+          width={"70px"}
+          height={"70px"}
         />
       </Link>
       <Typography
@@ -28,7 +28,7 @@ const Logo = () => {
           textShadow: "2px 2px 20px #000",
         }}
       >
-        <span style={{ fontSize: "20px" }}>MERN</span>-GPT
+        <span style={{ fontSize: "30px" }}>Chet </span>- GEPETI
       </Typography>
     </div>
   );

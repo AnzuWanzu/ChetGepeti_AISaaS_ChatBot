@@ -33,7 +33,11 @@ const Login = () => {
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
-        <img src="airobot.png" alt="Robot" style={{ width: "400px" }}></img>
+        <img
+          src="Chet_Login.png"
+          alt="ChetWelcome"
+          style={{ width: "400px" }}
+        ></img>
       </Box>
       <Box
         display={"flex"}
@@ -48,6 +52,7 @@ const Login = () => {
           style={{
             margin: "auto",
             padding: "30px",
+            background: "#202934ff",
             boxShadow: "10px 10px 20px #000",
             borderRadius: "10px",
             border: "none",
@@ -78,9 +83,9 @@ const Login = () => {
                 mt: 2,
                 width: "400px",
                 borderRadius: 2,
-                bgcolor: "#00fffc",
+                bgcolor: "#4c627bff",
                 ":hover": {
-                  bgcolor: "white",
+                  bgcolor: "#5e7a9aff",
                   color: "black",
                 },
               }}

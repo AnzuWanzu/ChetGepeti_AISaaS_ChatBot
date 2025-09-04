@@ -30,27 +30,22 @@ const Home = () => {
           }}
         >
           <img
-            src="robot.png"
-            alt="robot"
-            style={{ width: "200px", margin: "auto" }}
-          />
-          <img
             className="image-inverted rotate"
             src="openai.png"
             alt="openai"
-            style={{ width: "200px", margin: "auto" }}
+            style={{ width: "80px", margin: "auto" }}
           />
         </Box>
         <Box sx={{ display: "flex", mx: "auto" }}>
           <img
-            src="chat.png"
+            src="previewChat.png"
             alt="chatbot"
             style={{
               display: "flex",
               margin: "auto",
               width: isBelowMd ? "80%" : "60%",
               borderRadius: 20,
-              boxShadow: "-5px -5px 105px #64f3d5",
+              boxShadow: "-5px -5px 105px #4da777ff",
               marginTop: 20,
               marginBottom: 20,
               padding: 10,
