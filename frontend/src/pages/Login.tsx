@@ -31,31 +31,44 @@ const Login = () => {
   }, [auth]);
 
   return (
-    <Box width={"100%"} height={"100%"} display="flex" flex={1}>
-      <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
+    <Box
+      width={"100%"}
+      height={"100%"}
+      display="flex"
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Box
+        padding={4}
+        display={{ md: "flex", sm: "none", xs: "none" }}
+        justifyContent="center"
+        alignItems="center"
+        flex={0.4}
+      >
         <img
           src="Chet_Login.png"
           alt="ChetWelcome"
-          style={{ width: "400px" }}
+          style={{ width: "320px", maxWidth: "100%" }}
         ></img>
       </Box>
       <Box
         display={"flex"}
-        flex={{ xs: 1, md: 0.5 }}
+        flex={{ xs: 1, md: 0.6 }}
         justifyContent={"center"}
         alignItems={"center"}
-        ml={"auto"}
-        mt={16}
+        padding={2}
       >
         <form
           onSubmit={handleSubmit}
           style={{
             margin: "auto",
-            padding: "30px",
+            padding: "60px",
             background: "#202934ff",
             boxShadow: "10px 10px 20px #000",
-            borderRadius: "10px",
+            borderRadius: "15px",
             border: "none",
+            minWidth: "480px",
           }}
         >
           <Box
@@ -63,12 +76,13 @@ const Login = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              gap: 2,
             }}
           >
             <Typography
-              variant="h4"
+              variant="h3"
               textAlign="center"
-              padding={2}
+              padding={3}
               fontWeight={600}
             >
               Login
@@ -78,11 +92,14 @@ const Login = () => {
             <Button
               type="submit"
               sx={{
-                px: 2,
-                py: 1,
-                mt: 2,
-                width: "400px",
-                borderRadius: 2,
+                px: 3,
+                py: 2,
+                mt: 3,
+                width: "500px",
+                height: "56px",
+                borderRadius: 3,
+                fontSize: "18px",
+                fontWeight: 600,
                 bgcolor: "#4c627bff",
                 ":hover": {
                   bgcolor: "#5e7a9aff",
