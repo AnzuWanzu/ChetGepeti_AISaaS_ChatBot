@@ -4,9 +4,12 @@ import { configureAI } from "../config/ai-config.js";
 import {
   createAssistantMessage,
   createUserMessage,
+  createSystemMessage,
   formatChatsForAPI,
 } from "../utils/chatHelpers.js";
 import { MODEL_VER } from "../utils/constants.js";
+import { getCharacterPrompt } from "../config/character-config.js";
+import { getAIParams } from "../config/ai-response-config.js";
 
 export const generateChatCompletion = async (
   req: Request,
@@ -21,17 +24,23 @@ export const generateChatCompletion = async (
         .status(401)
         .json({ message: "User not registered OR Token malfunctioned" });
 
-    // grab chats of user
+    const characterPrompt = getCharacterPrompt();
+    const systemMessage = createSystemMessage(characterPrompt);
+
     const chats = formatChatsForAPI(user.chats);
     const userMessage = createUserMessage(message);
     chats.push(userMessage);
     user.chats.push(userMessage);
 
-    // send all chats with new one to Groq API (OpenAI compatible)
+    const messagesWithCharacter = [systemMessage, ...chats];
+
+    const aiParams = getAIParams("concise");
+
     const openai = configureAI();
     const chatResponse = await openai.chat.completions.create({
       model: MODEL_VER,
-      messages: chats,
+      messages: messagesWithCharacter,
+      ...aiParams,
     });
 
     // get latest response
