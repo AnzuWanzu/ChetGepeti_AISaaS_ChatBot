@@ -114,7 +114,6 @@ const ChatItem = ({
         p: 2,
         bgcolor: "#181915ff",
         gap: 2,
-        my: 1,
         mx: 1,
         borderRadius: 2,
       }}

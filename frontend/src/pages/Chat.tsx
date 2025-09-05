@@ -194,36 +194,6 @@ const Chat = () => {
             );
           })}
           {isThinking && <ThinkingAnimation />}
-          {typingMessageIndex !== null && !isTypingStopped && (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                mt: 2,
-                mb: 1,
-              }}
-            >
-              <Button
-                onClick={handleStopGeneration}
-                startIcon={<IoMdSquare />}
-                sx={{
-                  color: "white",
-                  backgroundColor: "rgba(244, 67, 54, 0.8)",
-                  borderRadius: "20px",
-                  px: 3,
-                  py: 1,
-                  fontWeight: "600",
-                  fontSize: "14px",
-                  textTransform: "none",
-                  "&:hover": {
-                    backgroundColor: "rgba(244, 67, 54, 1)",
-                  },
-                }}
-              >
-                Stop Generation
-              </Button>
-            </Box>
-          )}
         </Box>
         <Box
           sx={{
@@ -256,6 +226,23 @@ const Chat = () => {
               }
             }}
           />
+          {/* Stop Generation Button */}
+          {typingMessageIndex !== null && !isTypingStopped && (
+            <IconButton 
+              onClick={handleStopGeneration}
+              sx={{ 
+                color: "white", 
+                flexShrink: 0,
+                mr: 1,
+                "&:hover": {
+                  backgroundColor: "rgba(244, 67, 54, 0.1)",
+                }
+              }}
+            >
+              <IoMdSquare />
+            </IconButton>
+          )}
+          {/* Send Button */}
           <IconButton sx={{ color: "white", flexShrink: 0 }}>
             <IoMdSend onClick={onSubmit} />
           </IconButton>
