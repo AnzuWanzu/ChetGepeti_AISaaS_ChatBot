@@ -13,16 +13,22 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
   fontSize = "20px",
   sx = {},
 }) => {
-  const segments = parseMarkdownText(text);
+  // Clean up excessive newlines while preserving intentional formatting
+  const cleanedText = text.replace(/\n{3,}/g, "\n\n"); // Replace 3+ newlines with just 2
+  const segments = parseMarkdownText(cleanedText);
 
   return (
-    <Typography sx={{ fontSize, whiteSpace: "pre-line", ...sx }}>
+    <Typography
+      sx={{
+        fontSize,
+        whiteSpace: "pre-line",
+        lineHeight: 1.4,
+        ...sx,
+      }}
+    >
       {segments.map((segment, index) => {
-        const shouldAddLineBreak = segment.type === "bold" && index > 0;
-
         return (
           <React.Fragment key={index}>
-            {shouldAddLineBreak && <br />}
             {segment.type === "bold" && (
               <strong style={{ fontWeight: 600, fontSize: "1.1em" }}>
                 {segment.content}

@@ -176,7 +176,9 @@ const Chat = () => {
           }}
         >
           {chatMessages.map((chat, index) => {
-            const stoppedContent = stoppedMessages.get(index);
+            const messageKey = `${chat.role}-${chat.content.substring(0, 50)}`;
+            const stoppedContent = stoppedMessages.get(messageKey);
+
             return (
               <ChatItem
                 content={stoppedContent || chat.content}

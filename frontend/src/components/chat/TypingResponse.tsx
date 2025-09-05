@@ -128,7 +128,7 @@ const TypingResponse = ({
                 const codeContent = formatCodeBlock(block);
 
                 return (
-                  <Box key={index} sx={{ my: 1.5 }}>
+                  <Box key={index} sx={{ my: 1 }}>
                     <SyntaxHighlighter
                       style={coldarkDark}
                       language={language}
@@ -151,7 +151,7 @@ const TypingResponse = ({
                 );
               } else {
                 return (
-                  <Box key={index} sx={{ my: 1 }}>
+                  <Box key={index} sx={{ my: 0.5 }}>
                     <FormattedText
                       text={
                         index === stoppedBlocks.length - 1 && showStopped

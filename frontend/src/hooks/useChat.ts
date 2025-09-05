@@ -20,7 +20,7 @@ export const useChat = () => {
     null
   );
   const [isTypingStopped, setIsTypingStopped] = useState(false);
-  const [stoppedMessages, setStoppedMessages] = useState<Map<number, string>>(
+  const [stoppedMessages, setStoppedMessages] = useState<Map<string, string>>(
     new Map()
   );
 
@@ -31,15 +31,15 @@ export const useChat = () => {
     setChatMessages((prev) => [...prev, newMessage]);
 
     setIsTypingStopped(false);
-    setStoppedMessages(new Map());
     setIsThinking(true);
 
     try {
       const chatData = await sendChatRequest(content);
       setIsThinking(false);
-      setChatMessages([...chatData.chats]);
+      const serverMessages = [...chatData.chats];
+      setChatMessages(serverMessages);
 
-      const lastMessageIndex = chatData.chats.length - 1;
+      const lastMessageIndex = serverMessages.length - 1;
       setTypingMessageIndex(lastMessageIndex);
     } catch (error) {
       console.error("Chat request failed:", error);
@@ -53,6 +53,7 @@ export const useChat = () => {
       toast.loading("Deleting Chats", { id: "loadchats" });
       await deleteUserChats();
       setChatMessages([]);
+      setStoppedMessages(new Map());
       toast.success("Deleted Chats Successfully", { id: "loadchats" });
     } catch (error) {
       console.log(error);
@@ -73,12 +74,19 @@ export const useChat = () => {
     messageIndex: number,
     truncatedContent: string
   ) => {
-    setStoppedMessages(
-      (prev) =>
-        new Map(
-          prev.set(messageIndex, truncatedContent + " [Generation stopped]")
-        )
-    );
+    const originalMessage = chatMessages[messageIndex];
+    if (!originalMessage) return;
+
+    const messageKey = `${
+      originalMessage.role
+    }-${originalMessage.content.substring(0, 50)}`;
+    const stoppedText = truncatedContent + " [Generation stopped]";
+
+    setStoppedMessages((prev) => {
+      const newMap = new Map(prev);
+      newMap.set(messageKey, stoppedText);
+      return newMap;
+    });
   };
 
   useLayoutEffect(() => {
