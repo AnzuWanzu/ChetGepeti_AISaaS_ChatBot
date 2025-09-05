@@ -11,8 +11,19 @@ import { useAuth } from "../../context/AuthContext";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import FormattedText from "../shared/FormattedText.js";
+import TypingResponse from "./TypingResponse.js";
 
-const ChatItem = ({ content, role }: ChatMessage) => {
+interface ChatItemProps extends ChatMessage {
+  isTyping?: boolean;
+  onTypingComplete?: () => void;
+}
+
+const ChatItem = ({
+  content,
+  role,
+  isTyping = false,
+  onTypingComplete,
+}: ChatItemProps) => {
   const auth = useAuth();
 
   const renderContent = (text: string) => {
@@ -79,7 +90,13 @@ const ChatItem = ({ content, role }: ChatMessage) => {
       <Avatar sx={{ ml: "0", width: 40, height: 40 }}>
         <img src="chet_gepeti.png" alt="openai" width={"30px"} />
       </Avatar>
-      <Box sx={{ flex: 1, minWidth: 0 }}>{renderContent(content)}</Box>
+      <Box sx={{ flex: 1, minWidth: 0 }}>
+        {isTyping ? (
+          <TypingResponse text={content} onComplete={onTypingComplete} />
+        ) : (
+          renderContent(content)
+        )}
+      </Box>
     </Box>
   ) : (
     <Box

@@ -22,6 +22,9 @@ const Chat = () => {
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isThinking, setIsThinking] = useState(false);
+  const [typingMessageIndex, setTypingMessageIndex] = useState<number | null>(
+    null
+  );
   const navigate = useNavigate();
 
   // auto-scroll of chat to bottom (recent messages)
@@ -30,7 +33,7 @@ const Chat = () => {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chatMessages, isThinking]);
+  }, [chatMessages, isThinking, typingMessageIndex]);
 
   const handleSubmit = async () => {
     const content = inputRef.current?.value as string;
@@ -40,17 +43,18 @@ const Chat = () => {
     const newMessage = createUserMessage(content);
     setChatMessages((prev) => [...prev, newMessage]);
 
-    // Show thinking animation
     setIsThinking(true);
 
     try {
       const chatData = await sendChatRequest(content);
+      setIsThinking(false);
       setChatMessages([...chatData.chats]);
+
+      const lastMessageIndex = chatData.chats.length - 1;
+      setTypingMessageIndex(lastMessageIndex);
     } catch (error) {
       console.error("Chat request failed:", error);
       toast.error("Failed to send message");
-    } finally {
-      // Hide thinking animation
       setIsThinking(false);
     }
   };
@@ -222,7 +226,13 @@ const Chat = () => {
           }}
         >
           {chatMessages.map((chat, index) => (
-            <ChatItem content={chat.content} role={chat.role} key={index} />
+            <ChatItem
+              content={chat.content}
+              role={chat.role}
+              key={index}
+              isTyping={typingMessageIndex === index}
+              onTypingComplete={() => setTypingMessageIndex(null)}
+            />
           ))}
           {isThinking && <ThinkingAnimation />}
         </Box>
