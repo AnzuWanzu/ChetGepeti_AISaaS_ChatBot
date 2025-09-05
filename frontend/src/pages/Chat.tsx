@@ -1,31 +1,28 @@
 import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import { red } from "@mui/material/colors";
-import type { ChatMessage } from "../types/chat";
 import ChatItem from "../components/chat/ChatItem";
 import ThinkingAnimation from "../components/chat/ThinkingAnimation";
-import { IoMdSend, IoMdTrash } from "react-icons/io";
-import { useRef, useState, useEffect, useLayoutEffect } from "react";
-import { createUserMessage } from "../utils/chatHelpers";
-import {
-  deleteUserChats,
-  getUserChats,
-  sendChatRequest,
-} from "../helpers/api-communicator";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { IoMdSend, IoMdTrash, IoMdSquare } from "react-icons/io";
+import { useRef, useEffect } from "react";
+import { useChat } from "../hooks/useChat";
 import "../components/shared/ModernScrollbar.css";
 
 const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const auth = useAuth();
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
-  const [isThinking, setIsThinking] = useState(false);
-  const [typingMessageIndex, setTypingMessageIndex] = useState<number | null>(
-    null
-  );
-  const navigate = useNavigate();
+
+  const {
+    chatMessages,
+    isThinking,
+    typingMessageIndex,
+    isTypingStopped,
+    handleSubmit,
+    handleDeleteChats,
+    handleStopGeneration,
+    handleTypingComplete,
+  } = useChat();
 
   // auto-scroll of chat to bottom (recent messages)
   useEffect(() => {
@@ -35,62 +32,13 @@ const Chat = () => {
     }
   }, [chatMessages, isThinking, typingMessageIndex]);
 
-  const handleSubmit = async () => {
+  const onSubmit = () => {
     const content = inputRef.current?.value as string;
     if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
-    const newMessage = createUserMessage(content);
-    setChatMessages((prev) => [...prev, newMessage]);
-
-    setIsThinking(true);
-
-    try {
-      const chatData = await sendChatRequest(content);
-      setIsThinking(false);
-      setChatMessages([...chatData.chats]);
-
-      const lastMessageIndex = chatData.chats.length - 1;
-      setTypingMessageIndex(lastMessageIndex);
-    } catch (error) {
-      console.error("Chat request failed:", error);
-      toast.error("Failed to send message");
-      setIsThinking(false);
-    }
+    handleSubmit(content);
   };
-
-  const handleDeleteChats = async () => {
-    try {
-      toast.loading("Deleting Chats", { id: "loadchats" });
-      await deleteUserChats();
-      setChatMessages([]);
-      toast.success("Deleted Chats Successfully", { id: "loadchats" });
-    } catch (error) {
-      console.log(error);
-      toast.error("Deleting Chats Failed", { id: "loadchats" });
-    }
-  };
-
-  useLayoutEffect(() => {
-    if (auth?.isLoggedIn && auth.user) {
-      toast.loading("Loading Chats", { id: "loadchats" });
-    }
-    getUserChats()
-      .then((data) => {
-        setChatMessages([...data.chats]);
-        toast.success("Sucessfully Loaded Chats", { id: "loadchats" });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Loading Failed", { id: "loadchats" });
-      });
-  }, [auth]);
-
-  useEffect(() => {
-    if (!auth?.user) {
-      navigate("/login");
-    }
-  }, [auth, navigate]);
 
   return (
     <Box
@@ -231,10 +179,41 @@ const Chat = () => {
               role={chat.role}
               key={index}
               isTyping={typingMessageIndex === index}
-              onTypingComplete={() => setTypingMessageIndex(null)}
+              onTypingComplete={handleTypingComplete}
+              isStopped={isTypingStopped}
             />
           ))}
           {isThinking && <ThinkingAnimation />}
+          {typingMessageIndex !== null && !isTypingStopped && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 2,
+                mb: 1,
+              }}
+            >
+              <Button
+                onClick={handleStopGeneration}
+                startIcon={<IoMdSquare />}
+                sx={{
+                  color: "white",
+                  backgroundColor: "rgba(244, 67, 54, 0.8)",
+                  borderRadius: "20px",
+                  px: 3,
+                  py: 1,
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "rgba(244, 67, 54, 1)",
+                  },
+                }}
+              >
+                Stop Generation
+              </Button>
+            </Box>
+          )}
         </Box>
         <Box
           sx={{
@@ -263,12 +242,12 @@ const Chat = () => {
             }}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                handleSubmit();
+                onSubmit();
               }
             }}
           />
           <IconButton sx={{ color: "white", flexShrink: 0 }}>
-            <IoMdSend onClick={handleSubmit} />
+            <IoMdSend onClick={onSubmit} />
           </IconButton>
         </Box>
       </Box>

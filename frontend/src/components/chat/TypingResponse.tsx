@@ -1,5 +1,6 @@
 import { TypeAnimation } from "react-type-animation";
 import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import FormattedText from "../shared/FormattedText";
@@ -13,11 +14,62 @@ import {
 interface TypingResponseProps {
   text: string;
   onComplete?: () => void;
+  onStop?: () => void;
+  isStopped?: boolean;
 }
 
-const TypingResponse = ({ text, onComplete }: TypingResponseProps) => {
+const TypingResponse = ({
+  text,
+  onComplete,
+  onStop,
+  isStopped,
+}: TypingResponseProps) => {
+  const [typedText, setTypedText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
   const messageBlocks = extractCodeFromString(text);
   const hasCodeBlocks = messageBlocks && messageBlocks.length > 1;
+
+  useEffect(() => {
+    setTypedText("");
+    setCurrentIndex(0);
+  }, [text]);
+
+  useEffect(() => {
+    if (isStopped) {
+      onStop?.();
+      return;
+    }
+
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setTypedText(text.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      }, 30);
+
+      return () => clearTimeout(timeout);
+    } else if (currentIndex >= text.length) {
+      onComplete?.();
+    }
+  }, [currentIndex, text, isStopped, onComplete, onStop]);
+
+  if (isStopped && typedText) {
+    return (
+      <Box
+        style={{
+          fontSize: "18px",
+          color: "white",
+          fontFamily: "inherit",
+          lineHeight: "1.5",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        <FormattedText
+          text={typedText + " [Generation stopped]"}
+          fontSize="18px"
+        />
+      </Box>
+    );
+  }
 
   if (hasCodeBlocks) {
     return (
@@ -62,6 +114,41 @@ const TypingResponse = ({ text, onComplete }: TypingResponseProps) => {
             }
           })
           .filter(Boolean)}
+      </Box>
+    );
+  }
+
+  if (!hasCodeBlocks) {
+    if (isStopped) {
+      return (
+        <Box
+          style={{
+            fontSize: "18px",
+            color: "white",
+            fontFamily: "inherit",
+            lineHeight: "1.5",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          <FormattedText
+            text={typedText + " [Generation stopped]"}
+            fontSize="18px"
+          />
+        </Box>
+      );
+    }
+
+    return (
+      <Box
+        style={{
+          fontSize: "18px",
+          color: "white",
+          fontFamily: "inherit",
+          lineHeight: "1.5",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        <FormattedText text={typedText} fontSize="18px" />
       </Box>
     );
   }

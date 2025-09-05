@@ -16,6 +16,7 @@ import TypingResponse from "./TypingResponse.js";
 interface ChatItemProps extends ChatMessage {
   isTyping?: boolean;
   onTypingComplete?: () => void;
+  isStopped?: boolean;
 }
 
 const ChatItem = ({
@@ -23,6 +24,7 @@ const ChatItem = ({
   role,
   isTyping = false,
   onTypingComplete,
+  isStopped = false,
 }: ChatItemProps) => {
   const auth = useAuth();
 
@@ -92,7 +94,11 @@ const ChatItem = ({
       </Avatar>
       <Box sx={{ flex: 1, minWidth: 0 }}>
         {isTyping ? (
-          <TypingResponse text={content} onComplete={onTypingComplete} />
+          <TypingResponse
+            text={content}
+            onComplete={onTypingComplete}
+            isStopped={isStopped}
+          />
         ) : (
           renderContent(content)
         )}
