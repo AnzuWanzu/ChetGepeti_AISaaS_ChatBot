@@ -18,10 +18,12 @@ const Chat = () => {
     isThinking,
     typingMessageIndex,
     isTypingStopped,
+    stoppedMessages,
     handleSubmit,
     handleDeleteChats,
     handleStopGeneration,
     handleTypingComplete,
+    handleStoreTruncatedContent,
   } = useChat();
 
   // auto-scroll of chat to bottom (recent messages)
@@ -173,16 +175,22 @@ const Chat = () => {
             py: 1,
           }}
         >
-          {chatMessages.map((chat, index) => (
-            <ChatItem
-              content={chat.content}
-              role={chat.role}
-              key={index}
-              isTyping={typingMessageIndex === index}
-              onTypingComplete={handleTypingComplete}
-              isStopped={isTypingStopped}
-            />
-          ))}
+          {chatMessages.map((chat, index) => {
+            const stoppedContent = stoppedMessages.get(index);
+            return (
+              <ChatItem
+                content={stoppedContent || chat.content}
+                role={chat.role}
+                key={index}
+                isTyping={typingMessageIndex === index && !stoppedContent}
+                onTypingComplete={handleTypingComplete}
+                isStopped={isTypingStopped && typingMessageIndex === index}
+                onStoreTruncated={(truncatedContent) =>
+                  handleStoreTruncatedContent(index, truncatedContent)
+                }
+              />
+            );
+          })}
           {isThinking && <ThinkingAnimation />}
           {typingMessageIndex !== null && !isTypingStopped && (
             <Box
@@ -217,7 +225,7 @@ const Chat = () => {
         </Box>
         <Box
           sx={{
-            width: "calc(100% - 80px)",
+            width: "calc(100% - 93px)",
             p: 2.5,
             borderRadius: 3,
             bgcolor: "#20221cff",

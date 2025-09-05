@@ -17,6 +17,7 @@ interface ChatItemProps extends ChatMessage {
   isTyping?: boolean;
   onTypingComplete?: () => void;
   isStopped?: boolean;
+  onStoreTruncated?: (truncatedContent: string) => void;
 }
 
 const ChatItem = ({
@@ -25,6 +26,7 @@ const ChatItem = ({
   isTyping = false,
   onTypingComplete,
   isStopped = false,
+  onStoreTruncated,
 }: ChatItemProps) => {
   const auth = useAuth();
 
@@ -98,6 +100,7 @@ const ChatItem = ({
             text={content}
             onComplete={onTypingComplete}
             isStopped={isStopped}
+            onStoreTruncated={onStoreTruncated}
           />
         ) : (
           renderContent(content)

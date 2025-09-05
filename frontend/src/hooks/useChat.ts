@@ -20,6 +20,9 @@ export const useChat = () => {
     null
   );
   const [isTypingStopped, setIsTypingStopped] = useState(false);
+  const [stoppedMessages, setStoppedMessages] = useState<Map<number, string>>(
+    new Map()
+  );
 
   const handleSubmit = async (content: string) => {
     if (!content.trim()) return;
@@ -28,6 +31,7 @@ export const useChat = () => {
     setChatMessages((prev) => [...prev, newMessage]);
 
     setIsTypingStopped(false);
+    setStoppedMessages(new Map());
     setIsThinking(true);
 
     try {
@@ -58,12 +62,23 @@ export const useChat = () => {
 
   const handleStopGeneration = () => {
     setIsTypingStopped(true);
-    setTypingMessageIndex(null);
   };
 
   const handleTypingComplete = () => {
     setTypingMessageIndex(null);
     setIsTypingStopped(false);
+  };
+
+  const handleStoreTruncatedContent = (
+    messageIndex: number,
+    truncatedContent: string
+  ) => {
+    setStoppedMessages(
+      (prev) =>
+        new Map(
+          prev.set(messageIndex, truncatedContent + " [Generation stopped]")
+        )
+    );
   };
 
   useLayoutEffect(() => {
@@ -92,10 +107,12 @@ export const useChat = () => {
     isThinking,
     typingMessageIndex,
     isTypingStopped,
+    stoppedMessages,
 
     handleSubmit,
     handleDeleteChats,
     handleStopGeneration,
     handleTypingComplete,
+    handleStoreTruncatedContent,
   };
 };

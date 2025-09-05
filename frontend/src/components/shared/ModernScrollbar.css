@@ -107,7 +107,7 @@
 .chat-scrollbar::-webkit-scrollbar-track {
   background: rgba(32, 34, 28, 0.2);
   border-radius: 15px;
-  margin: 3px;
+  margin: 2px;
 }
 
 .chat-scrollbar::-webkit-scrollbar-thumb {

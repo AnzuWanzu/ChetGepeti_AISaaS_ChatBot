@@ -1,6 +1,5 @@
-import { TypeAnimation } from "react-type-animation";
 import { Box } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import FormattedText from "../shared/FormattedText";
@@ -16,6 +15,7 @@ interface TypingResponseProps {
   onComplete?: () => void;
   onStop?: () => void;
   isStopped?: boolean;
+  onStoreTruncated?: (truncatedContent: string) => void;
 }
 
 const TypingResponse = ({
@@ -23,103 +23,151 @@ const TypingResponse = ({
   onComplete,
   onStop,
   isStopped,
+  onStoreTruncated,
 }: TypingResponseProps) => {
   const [typedText, setTypedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const messageBlocks = extractCodeFromString(text);
-  const hasCodeBlocks = messageBlocks && messageBlocks.length > 1;
+  const [isCompleted, setIsCompleted] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     setTypedText("");
     setCurrentIndex(0);
+    setIsCompleted(false);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
   }, [text]);
 
   useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isCompleted) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      return;
+    }
+
     if (isStopped) {
-      onStop?.();
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      onStoreTruncated?.(typedText);
+      setTimeout(() => {
+        onComplete?.();
+      }, 1000);
       return;
     }
 
     if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
+      timeoutRef.current = window.setTimeout(() => {
         setTypedText(text.slice(0, currentIndex + 1));
         setCurrentIndex(currentIndex + 1);
       }, 30);
 
-      return () => clearTimeout(timeout);
-    } else if (currentIndex >= text.length) {
+      return () => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    } else if (currentIndex >= text.length && !isCompleted) {
+      setIsCompleted(true);
       onComplete?.();
     }
-  }, [currentIndex, text, isStopped, onComplete, onStop]);
+  }, [
+    currentIndex,
+    text,
+    isStopped,
+    isCompleted,
+    onComplete,
+    onStop,
+    onStoreTruncated,
+    typedText,
+  ]);
 
-  if (isStopped && typedText) {
-    return (
-      <Box
-        style={{
-          fontSize: "18px",
-          color: "white",
-          fontFamily: "inherit",
-          lineHeight: "1.5",
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        <FormattedText
-          text={typedText + " [Generation stopped]"}
-          fontSize="18px"
-        />
-      </Box>
-    );
-  }
+  const renderFormattedContent = (
+    content: string,
+    showStopped: boolean = false
+  ) => {
+    const blocks = extractCodeFromString(content);
+    const finalText = showStopped ? content + " [Generation stopped]" : content;
 
-  if (hasCodeBlocks) {
-    return (
-      <Box>
-        {messageBlocks
-          ?.map((block, index) => {
-            const trimmedBlock = block.trim();
-            if (!trimmedBlock) return null;
+    if (blocks && blocks.length > 1) {
+      const stoppedBlocks: string[] = [];
+      let accumulatedLength = 0;
 
-            if (isCodeBlock(block)) {
-              const language = detectProgrammingLanguage(block);
-              const codeContent = formatCodeBlock(block);
+      for (const block of blocks) {
+        if (accumulatedLength + block.length <= content.length) {
+          stoppedBlocks.push(block);
+          accumulatedLength += block.length;
+        } else {
+          const remainingLength = content.length - accumulatedLength;
+          if (remainingLength > 0) {
+            stoppedBlocks.push(block.slice(0, remainingLength));
+          }
+          break;
+        }
+      }
 
-              return (
-                <Box key={index} sx={{ my: 1.5 }}>
-                  <SyntaxHighlighter
-                    style={coldarkDark}
-                    language={language}
-                    customStyle={{
-                      margin: 0,
-                      borderRadius: "8px",
-                      fontSize: "14px",
-                      padding: "16px",
-                      overflow: "auto",
-                      maxWidth: "100%",
-                      wordWrap: "break-word",
-                      whiteSpace: "pre-wrap",
-                    }}
-                    wrapLines={true}
-                    wrapLongLines={true}
-                  >
-                    {codeContent}
-                  </SyntaxHighlighter>
-                </Box>
-              );
-            } else {
-              return (
-                <Box key={index} sx={{ my: 1 }}>
-                  <FormattedText text={block} fontSize="18px" />
-                </Box>
-              );
-            }
-          })
-          .filter(Boolean)}
-      </Box>
-    );
-  }
+      return (
+        <Box>
+          {stoppedBlocks
+            .map((block, index) => {
+              const trimmedBlock = block.trim();
+              if (!trimmedBlock) return null;
 
-  if (!hasCodeBlocks) {
-    if (isStopped) {
+              if (isCodeBlock(block)) {
+                const language = detectProgrammingLanguage(block);
+                const codeContent = formatCodeBlock(block);
+
+                return (
+                  <Box key={index} sx={{ my: 1.5 }}>
+                    <SyntaxHighlighter
+                      style={coldarkDark}
+                      language={language}
+                      customStyle={{
+                        margin: 0,
+                        borderRadius: "8px",
+                        fontSize: "14px",
+                        padding: "16px",
+                        overflow: "auto",
+                        maxWidth: "100%",
+                        wordWrap: "break-word",
+                        whiteSpace: "pre-wrap",
+                      }}
+                      wrapLines={true}
+                      wrapLongLines={true}
+                    >
+                      {codeContent}
+                    </SyntaxHighlighter>
+                  </Box>
+                );
+              } else {
+                return (
+                  <Box key={index} sx={{ my: 1 }}>
+                    <FormattedText
+                      text={
+                        index === stoppedBlocks.length - 1 && showStopped
+                          ? block + " [Generation stopped]"
+                          : block
+                      }
+                      fontSize="18px"
+                    />
+                  </Box>
+                );
+              }
+            })
+            .filter(Boolean)}
+        </Box>
+      );
+    } else {
       return (
         <Box
           style={{
@@ -130,50 +178,21 @@ const TypingResponse = ({
             whiteSpace: "pre-wrap",
           }}
         >
-          <FormattedText
-            text={typedText + " [Generation stopped]"}
-            fontSize="18px"
-          />
+          <FormattedText text={finalText} fontSize="18px" />
         </Box>
       );
     }
+  };
 
-    return (
-      <Box
-        style={{
-          fontSize: "18px",
-          color: "white",
-          fontFamily: "inherit",
-          lineHeight: "1.5",
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        <FormattedText text={typedText} fontSize="18px" />
-      </Box>
-    );
+  if (isStopped && typedText) {
+    return renderFormattedContent(typedText, true);
   }
 
-  return (
-    <TypeAnimation
-      sequence={[
-        text,
-        () => {
-          onComplete?.();
-        },
-      ]}
-      wrapper="div"
-      speed={95}
-      style={{
-        fontSize: "18px",
-        color: "white",
-        display: "inline-block",
-        fontFamily: "inherit",
-        lineHeight: "1.5",
-        whiteSpace: "pre-wrap",
-      }}
-      cursor={false}
-    />
-  );
+  if (isCompleted) {
+    return renderFormattedContent(text);
+  }
+
+  return renderFormattedContent(typedText);
 };
 
 export default TypingResponse;
