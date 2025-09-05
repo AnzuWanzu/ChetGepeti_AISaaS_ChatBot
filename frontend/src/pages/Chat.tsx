@@ -4,7 +4,7 @@ import { red } from "@mui/material/colors";
 import type { ChatMessage } from "../types/chat";
 import ChatItem from "../components/chat/ChatItem";
 import ThinkingAnimation from "../components/chat/ThinkingAnimation";
-import { IoMdSend } from "react-icons/io";
+import { IoMdSend, IoMdTrash } from "react-icons/io";
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { createUserMessage } from "../utils/chatHelpers";
 import {
@@ -94,9 +94,10 @@ const Chat = () => {
         display: "flex",
         flex: 1,
         width: "100%",
-        height: "100%",
-        mt: 3,
-        gap: 3,
+        height: "calc(100vh - 90px)",
+        gap: 2,
+        p: 2,
+        boxSizing: "border-box",
       }}
     >
       <Box
@@ -110,41 +111,65 @@ const Chat = () => {
           sx={{
             display: "flex",
             width: "100%",
-            height: "60vh",
+            height: "50%",
             bgcolor: "#2c2924ff",
             borderRadius: 5,
             flexDirection: "column",
-            mx: 3,
+            py: 4,
+            mx: 4,
+            mt: 10,
           }}
         >
           <Avatar
             sx={{
               mx: "auto",
-              my: 2,
+              mb: 2,
               bgcolor: "white",
               color: "black",
-              fontWeight: 700,
+              fontWeight: 900,
+              fontSize: "20px",
             }}
           >
             {auth?.user?.name[0]?.toUpperCase()}
             {auth?.user?.name.split(" ")[1]?.[0]?.toUpperCase()}
           </Avatar>
-          <Typography sx={{ mx: "auto", fontFamily: "work sans" }}>
+          <Typography
+            sx={{
+              mx: "auto",
+              fontFamily: "work sans",
+              fontSize: "14px",
+              textAlign: "center",
+            }}
+          >
             You are talking to a ChatBot
           </Typography>
-          <Typography sx={{ mx: "auto", fontFamily: "work sans", my: 4, p: 3 }}>
+          <Typography
+            sx={{
+              mx: "auto",
+              fontFamily: "work sans",
+              my: 2,
+              p: 2,
+              fontSize: "13px",
+              textAlign: "center",
+              lineHeight: 1.4,
+            }}
+          >
             You can ask Chet Gepeti a bunch of things, especially Fantasy. Chet
             Gepeti is my custom character in Divinity Original Sin 2.
           </Typography>
           <Button
             onClick={handleDeleteChats}
+            startIcon={<IoMdTrash />}
             sx={{
-              width: "200px",
-              my: "auto",
+              width: "180px",
+              mt: "auto",
+              mb: 2,
               color: "white",
               fontWeight: "700",
               borderRadius: 3,
               mx: "auto",
+              fontSize: "12px",
+              py: 1,
               bgcolor: red[300],
               ":hover": {
                 bgcolor: red.A400,
@@ -160,19 +185,19 @@ const Chat = () => {
           display: "flex",
           flex: { md: 0.8, xs: 1, sm: 1 },
           flexDirection: "column",
-          p: 3,
+          height: "100%",
           boxSizing: "border-box",
-          maxWidth: "100%",
           overflow: "hidden",
         }}
       >
         <Typography
           sx={{
-            fontSize: "40px",
+            fontSize: { xs: "24px", sm: "28px", md: "32px" },
             color: "white",
-            mb: 2,
+            mb: 1,
             mx: "auto",
             fontWeight: "600",
+            textAlign: "center",
           }}
         >
           Model: llama-3.1-8b-instant
@@ -182,7 +207,7 @@ const Chat = () => {
           className="chat-scrollbar"
           sx={{
             width: "100%",
-            height: "60vh",
+            flex: 1,
             borderRadius: 3,
             display: "flex",
             flexDirection: "column",
@@ -191,6 +216,9 @@ const Chat = () => {
             overflowY: "auto",
             scrollBehavior: "smooth",
             boxSizing: "border-box",
+            mb: 1,
+            px: 5,
+            py: 1,
           }}
         >
           {chatMessages.map((chat, index) => (
@@ -200,14 +228,15 @@ const Chat = () => {
         </Box>
         <Box
           sx={{
-            width: "100%",
+            width: "calc(100% - 80px)",
             p: 2.5,
             borderRadius: 3,
             bgcolor: "#20221cff",
             display: "flex",
-            mt: 2,
             boxSizing: "border-box",
             alignItems: "center",
+            flexShrink: 0,
+            mx: 5,
           }}
         >
           <input
@@ -216,11 +245,11 @@ const Chat = () => {
             style={{
               flex: 1,
               backgroundColor: "transparent",
-              padding: "10px",
+              padding: "5px",
               border: "none",
               outline: "none",
               color: "white",
-              fontSize: "20px",
+              fontSize: "18px",
             }}
             onKeyPress={(e) => {
               if (e.key === "Enter") {

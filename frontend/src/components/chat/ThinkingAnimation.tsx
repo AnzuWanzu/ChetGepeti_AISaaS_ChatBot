@@ -22,9 +22,10 @@ const ThinkingAnimation = () => {
         gap: 2,
         borderRadius: 2,
         my: 1,
+        mx: 1,
       }}
     >
-      <Avatar sx={{ ml: "0" }}>
+      <Avatar sx={{ ml: "0", width: 40, height: 40 }}>
         <img src="chet_gepeti.png" alt="chet gepeti" width={"30px"} />
       </Avatar>
       <Box
@@ -38,7 +39,7 @@ const ThinkingAnimation = () => {
         <Typography
           sx={{
             color: "white",
-            fontSize: "20px",
+            fontSize: "18px",
             fontStyle: "italic",
             opacity: 0.8,
           }}
@@ -54,8 +55,8 @@ const ThinkingAnimation = () => {
                 height: 8,
                 borderRadius: "50%",
                 bgcolor: "white",
-                animation: `${dotAnimation} 1.4s infinite ease-in-out`,
-                animationDelay: `${index * 0.16}s`,
+                animation: `${dotAnimation} 6s infinite ease-in-out`,
+                animationDelay: `${index * 0.5}s`,
               }}
             />
           ))}
