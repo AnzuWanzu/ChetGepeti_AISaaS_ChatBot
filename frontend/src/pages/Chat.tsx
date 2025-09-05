@@ -13,6 +13,7 @@ import {
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import "../components/shared/ModernScrollbar.css";
 
 const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -165,6 +166,7 @@ const Chat = () => {
         </Typography>
         <Box
           ref={chatContainerRef}
+          className="chat-scrollbar"
           sx={{
             width: "100%",
             height: "60vh",

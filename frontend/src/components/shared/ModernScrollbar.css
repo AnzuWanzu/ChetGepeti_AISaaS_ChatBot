@@ -1,0 +1,145 @@
+/* Modern Scrollbar Styles */
+.modern-scrollbar {
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+.modern-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  margin: 4px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  transform: scaleY(1.1);
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}
+
+.modern-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Dark theme variant */
+.modern-scrollbar-dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.5) rgba(30, 41, 59, 0.3);
+}
+
+.modern-scrollbar-dark::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.modern-scrollbar-dark::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 12px;
+  margin: 4px;
+}
+
+.modern-scrollbar-dark::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(100, 116, 139, 0.6) 0%,
+    rgba(71, 85, 105, 0.4) 100%
+  );
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+.modern-scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(148, 163, 184, 0.8) 0%,
+    rgba(100, 116, 139, 0.6) 100%
+  );
+  transform: scaleY(1.1);
+}
+
+.modern-scrollbar-dark::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    rgba(203, 213, 225, 0.9) 0%,
+    rgba(148, 163, 184, 0.7) 100%
+  );
+}
+
+/* Chat-specific scrollbar */
+.chat-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(76, 98, 123, 0.6) rgba(32, 34, 28, 0.3);
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: rgba(32, 34, 28, 0.2);
+  border-radius: 15px;
+  margin: 6px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(76, 98, 123, 0.7) 0%,
+    rgba(60, 76, 91, 0.5) 100%
+  );
+  border-radius: 15px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(95, 126, 161, 0.9) 0%,
+    rgba(76, 98, 123, 0.7) 100%
+  );
+  transform: scaleX(1.2);
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    rgba(148, 163, 184, 1) 0%,
+    rgba(95, 126, 161, 0.8) 100%
+  );
+}
+
+.chat-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
