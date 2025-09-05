@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { red } from "@mui/material/colors";
 import type { ChatMessage } from "../types/chat";
 import ChatItem from "../components/chat/ChatItem";
+import ThinkingAnimation from "../components/chat/ThinkingAnimation";
 import { IoMdSend } from "react-icons/io";
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { createUserMessage } from "../utils/chatHelpers";
@@ -20,6 +21,7 @@ const Chat = () => {
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const auth = useAuth();
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [isThinking, setIsThinking] = useState(false);
   const navigate = useNavigate();
 
   // auto-scroll of chat to bottom (recent messages)
@@ -28,7 +30,7 @@ const Chat = () => {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chatMessages]);
+  }, [chatMessages, isThinking]);
 
   const handleSubmit = async () => {
     const content = inputRef.current?.value as string;
@@ -37,9 +39,20 @@ const Chat = () => {
     }
     const newMessage = createUserMessage(content);
     setChatMessages((prev) => [...prev, newMessage]);
-    const chatData = await sendChatRequest(content);
-    setChatMessages([...chatData.chats]);
-    //send to api
+
+    // Show thinking animation
+    setIsThinking(true);
+
+    try {
+      const chatData = await sendChatRequest(content);
+      setChatMessages([...chatData.chats]);
+    } catch (error) {
+      console.error("Chat request failed:", error);
+      toast.error("Failed to send message");
+    } finally {
+      // Hide thinking animation
+      setIsThinking(false);
+    }
   };
 
   const handleDeleteChats = async () => {
@@ -183,6 +196,7 @@ const Chat = () => {
           {chatMessages.map((chat, index) => (
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
+          {isThinking && <ThinkingAnimation />}
         </Box>
         <Box
           sx={{
