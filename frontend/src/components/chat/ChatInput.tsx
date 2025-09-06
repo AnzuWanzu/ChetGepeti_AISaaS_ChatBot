@@ -1,12 +1,11 @@
-import {
-  Box,
-  IconButton,
-  TextField,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import { IoMdSend, IoMdSquare } from "react-icons/io";
 import type { RefObject } from "react";
+import {
+  useResponsiveSize,
+  useResponsiveStyles,
+} from "../../hooks/useResponsive.js";
+import { responsivePatterns } from "../../utils/responsive.js";
 
 interface ChatInputProps {
   inputRef: RefObject<HTMLTextAreaElement | null>;
@@ -25,8 +24,8 @@ const ChatInput = ({
   value = "",
   onChange,
 }: ChatInputProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const responsiveSizes = useResponsiveSize();
+  const responsiveStyles = useResponsiveStyles();
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -38,19 +37,15 @@ const ChatInput = ({
   return (
     <Box
       sx={{
-        width: {
-          xs: "calc(100% - 20px)",
-          sm: "calc(100% - 40px)",
-          md: "calc(100% - 93px)",
-        },
-        p: { xs: 1.5, sm: 2, md: 2.5 },
+        width: responsivePatterns.layout.width.withPadding,
+        p: responsiveStyles.sectionPadding,
         borderRadius: 3,
         bgcolor: "#20221cff",
         display: "flex",
         boxSizing: "border-box",
         alignItems: "flex-end",
         flexShrink: 0,
-        mx: { xs: 1, sm: 2.5, md: 5 },
+        mx: responsiveStyles.containerMargin,
         gap: 1,
       }}
     >
@@ -68,7 +63,7 @@ const ChatInput = ({
           flex: 1,
           "& .MuiInput-root": {
             color: "white",
-            fontSize: { xs: "16px", sm: "17px", md: "18px" },
+            fontSize: responsiveStyles.bodyFontSize,
             "&:before": {
               borderBottom: "none",
             },
@@ -93,16 +88,16 @@ const ChatInput = ({
       {showStopButton && (
         <IconButton
           onClick={onStopGeneration}
-          size={isMobile ? "small" : "medium"}
+          size={responsiveSizes.iconSize}
           sx={{
             color: "white",
             flexShrink: 0,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            p: isMobile ? 1 : 1.2,
-            minWidth: isMobile ? "32px" : "40px",
-            minHeight: isMobile ? "32px" : "40px",
+            p: responsiveSizes.buttonPadding,
+            minWidth: responsiveSizes.buttonMinWidth,
+            minHeight: responsiveSizes.buttonMinHeight,
             "&:hover": {
               backgroundColor: "rgba(244, 67, 54, 0.1)",
             },
@@ -110,7 +105,7 @@ const ChatInput = ({
         >
           <IoMdSquare
             style={{
-              fontSize: isMobile ? "18px" : "20px",
+              fontSize: responsiveSizes.iconPixels,
               display: "block",
             }}
           />
@@ -120,16 +115,16 @@ const ChatInput = ({
       {/* Send Button */}
       <IconButton
         onClick={onSubmit}
-        size={isMobile ? "small" : "medium"}
+        size={responsiveSizes.iconSize}
         sx={{
           color: "white",
           flexShrink: 0,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          p: isMobile ? 1 : 1.2,
-          minWidth: isMobile ? "32px" : "40px",
-          minHeight: isMobile ? "32px" : "40px",
+          p: responsiveSizes.buttonPadding,
+          minWidth: responsiveSizes.buttonMinWidth,
+          minHeight: responsiveSizes.buttonMinHeight,
           "&:hover": {
             backgroundColor: "rgba(76, 175, 80, 0.1)",
           },
@@ -137,7 +132,7 @@ const ChatInput = ({
       >
         <IoMdSend
           style={{
-            fontSize: isMobile ? "18px" : "20px",
+            fontSize: responsiveSizes.iconPixels,
             transform: "translate(1px, 0px)",
             display: "block",
           }}
