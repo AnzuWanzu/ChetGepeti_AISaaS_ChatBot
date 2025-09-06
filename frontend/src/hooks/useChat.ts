@@ -27,6 +27,10 @@ export const useChat = () => {
   const handleSubmit = async (content: string) => {
     if (!content.trim()) return;
 
+    if (isThinking || (typingMessageIndex !== null && !isTypingStopped)) {
+      return;
+    }
+
     const newMessage = createUserMessage(content);
     setChatMessages((prev) => [...prev, newMessage]);
 
@@ -116,6 +120,8 @@ export const useChat = () => {
     typingMessageIndex,
     isTypingStopped,
     stoppedMessages,
+    isAIGenerating:
+      isThinking || (typingMessageIndex !== null && !isTypingStopped),
 
     handleSubmit,
     handleDeleteChats,

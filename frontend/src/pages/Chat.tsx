@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useRef, useEffect, useState } from "react";
-import { useChat } from "../hooks/useChat";
+import { useChatState } from "../hooks/useChatState";
 import { getChatStyles } from "../utils/responsive";
 import ChatSidebar from "../components/chat/ChatSidebar";
 import ChatHeader from "../components/chat/ChatHeader";
@@ -15,18 +15,7 @@ const Chat = () => {
 
   const chatStyles = getChatStyles();
 
-  const {
-    chatMessages,
-    isThinking,
-    typingMessageIndex,
-    isTypingStopped,
-    stoppedMessages,
-    handleSubmit,
-    handleDeleteChats,
-    handleStopGeneration,
-    handleTypingComplete,
-    handleStoreTruncatedContent,
-  } = useChat();
+  const { data, state, handlers } = useChatState();
 
   // auto-scroll of chat to bottom (recent messages)
   useEffect(() => {
@@ -34,20 +23,20 @@ const Chat = () => {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chatMessages, isThinking, typingMessageIndex]);
+  }, [data.chatMessages, state.isThinking, state.typingMessageIndex]);
 
   const onSubmit = () => {
     const content = inputValue.trim();
     if (content) {
       setInputValue("");
-      handleSubmit(content);
+      handlers.handleSubmit(content);
     }
   };
 
   return (
     <Box sx={chatStyles.mainContainer}>
       {/* Sidebar */}
-      <ChatSidebar onDeleteChats={handleDeleteChats} />
+      <ChatSidebar onDeleteChats={handlers.handleDeleteChats} />
 
       {/* Main Chat Area */}
       <Box sx={chatStyles.chatArea}>
@@ -57,23 +46,26 @@ const Chat = () => {
         {/* Messages */}
         <ChatMessages
           chatContainerRef={chatContainerRef}
-          chatMessages={chatMessages}
-          isThinking={isThinking}
-          typingMessageIndex={typingMessageIndex}
-          isTypingStopped={isTypingStopped}
-          stoppedMessages={stoppedMessages}
-          onTypingComplete={handleTypingComplete}
-          onStoreTruncated={handleStoreTruncatedContent}
+          chatMessages={data.chatMessages}
+          isThinking={state.isThinking}
+          typingMessageIndex={state.typingMessageIndex}
+          isTypingStopped={state.isTypingStopped}
+          stoppedMessages={data.stoppedMessages}
+          onTypingComplete={handlers.handleTypingComplete}
+          onStoreTruncated={handlers.handleStoreTruncatedContent}
         />
 
         {/* Input */}
         <ChatInput
           inputRef={inputRef}
           onSubmit={onSubmit}
-          onStopGeneration={handleStopGeneration}
-          showStopButton={typingMessageIndex !== null && !isTypingStopped}
+          onStopGeneration={handlers.handleStopGeneration}
+          showStopButton={
+            state.typingMessageIndex !== null && !state.isTypingStopped
+          }
           value={inputValue}
           onChange={setInputValue}
+          disabled={state.isAIGenerating}
         />
       </Box>
     </Box>

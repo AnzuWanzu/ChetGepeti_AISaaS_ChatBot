@@ -14,6 +14,7 @@ interface ChatInputProps {
   showStopButton: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  disabled?: boolean;
 }
 
 const ChatInput = ({
@@ -23,6 +24,7 @@ const ChatInput = ({
   showStopButton,
   value = "",
   onChange,
+  disabled = false,
 }: ChatInputProps) => {
   const responsiveSizes = useResponsiveSize();
   const responsiveStyles = useResponsiveStyles();
@@ -30,6 +32,14 @@ const ChatInput = ({
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
+      if (!disabled) {
+        onSubmit();
+      }
+    }
+  };
+
+  const handleSubmit = () => {
+    if (!disabled) {
       onSubmit();
     }
   };
@@ -56,13 +66,16 @@ const ChatInput = ({
         minRows={1}
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
-        placeholder="Type your message..."
+        placeholder={
+          disabled ? "AI is generating response..." : "Type your message..."
+        }
         variant="standard"
         onKeyPress={handleKeyPress}
+        disabled={disabled}
         sx={{
           flex: 1,
           "& .MuiInput-root": {
-            color: "white",
+            color: disabled ? "#666" : "white",
             fontSize: responsiveStyles.bodyFontSize,
             "&:before": {
               borderBottom: "none",
@@ -77,20 +90,20 @@ const ChatInput = ({
           "& .MuiInput-input": {
             padding: "8px 0",
             "&::placeholder": {
-              color: "#999",
+              color: disabled ? "#555" : "#999",
               opacity: 1,
             },
           },
         }}
       />
 
-      {/* Stop Generation Button */}
+      {/* Stop Generation Button - Only show when AI is generating */}
       {showStopButton && (
         <IconButton
           onClick={onStopGeneration}
           size={responsiveSizes.iconSize}
           sx={{
-            color: "white",
+            color: "#f44336",
             flexShrink: 0,
             display: "flex",
             alignItems: "center",
@@ -112,32 +125,40 @@ const ChatInput = ({
         </IconButton>
       )}
 
-      {/* Send Button */}
-      <IconButton
-        onClick={onSubmit}
-        size={responsiveSizes.iconSize}
-        sx={{
-          color: "white",
-          flexShrink: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          p: responsiveSizes.buttonPadding,
-          minWidth: responsiveSizes.buttonMinWidth,
-          minHeight: responsiveSizes.buttonMinHeight,
-          "&:hover": {
-            backgroundColor: "rgba(76, 175, 80, 0.1)",
-          },
-        }}
-      >
-        <IoMdSend
-          style={{
-            fontSize: responsiveSizes.iconPixels,
-            transform: "translate(1px, 0px)",
-            display: "block",
+      {/* Send Button - Disabled when AI is generating, unless stop button is shown */}
+      {!showStopButton && (
+        <IconButton
+          onClick={handleSubmit}
+          size={responsiveSizes.iconSize}
+          disabled={disabled}
+          sx={{
+            color: disabled ? "#555" : "white",
+            flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            p: responsiveSizes.buttonPadding,
+            minWidth: responsiveSizes.buttonMinWidth,
+            minHeight: responsiveSizes.buttonMinHeight,
+            "&:hover": {
+              backgroundColor: disabled
+                ? "transparent"
+                : "rgba(76, 175, 80, 0.1)",
+            },
+            "&.Mui-disabled": {
+              color: "#555",
+            },
           }}
-        />
-      </IconButton>
+        >
+          <IoMdSend
+            style={{
+              fontSize: responsiveSizes.iconPixels,
+              transform: "translate(1px, 0px)",
+              display: "block",
+            }}
+          />
+        </IconButton>
+      )}
     </Box>
   );
 };
