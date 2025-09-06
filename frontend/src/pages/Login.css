@@ -180,15 +180,15 @@
 }
 
 .login-title {
-  text-align: center;
-  font-weight: 700;
-  color: white;
+  text-align: center !important;
+  font-weight: 700 !important;
+  color: white !important;
 }
 
 /* Mobile title */
 @media (max-width: 575px) {
   .login-title {
-    font-size: 18px;
+    font-size: 18px !important;
     margin-bottom: 0px;
   }
 }
@@ -196,7 +196,7 @@
 /* Small tablet title */
 @media (min-width: 576px) and (max-width: 767px) {
   .login-title {
-    font-size: 24px;
+    font-size: 24px !important;
     margin-bottom: 2px;
   }
 }
@@ -204,7 +204,7 @@
 /* Tablet title */
 @media (min-width: 768px) and (max-width: 1199px) {
   .login-title {
-    font-size: 30px;
+    font-size: 30px !important;
     margin-bottom: 4px;
   }
 }
@@ -212,7 +212,7 @@
 /* Large desktop title */
 @media (min-width: 1200px) {
   .login-title {
-    font-size: 35px;
+    font-size: 35px !important;
     margin-bottom: 6px;
   }
 }

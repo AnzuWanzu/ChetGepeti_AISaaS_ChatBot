@@ -44,7 +44,7 @@ const Home = () => {
             className="image-inverted rotate"
             src="openai.png"
             alt="openai"
-            style={{ width: "80px", margin: "auto" }}
+            style={{ width: "60px", margin: "auto" }}
           />
         </Box>
         <Box sx={{ display: "flex", mx: "auto" }}>
@@ -56,7 +56,7 @@ const Home = () => {
               margin: "auto",
               width: isBelowMd ? "50%" : "50%",
               borderRadius: 20,
-              boxShadow: "-5px -5px 105px #4da777ff",
+              boxShadow: "-5px -5px 105px #4d86a7ff",
             }}
           />
         </Box>

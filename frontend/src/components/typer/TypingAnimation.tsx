@@ -14,7 +14,12 @@ const TypingAnimation = () => {
 
   return (
     <TypeAnimation
-      sequence={["Chat with Chet Gepeti", 2000, "Built with love ❤️ ", 2000]}
+      sequence={[
+        "Chat with Chet Gepeti",
+        2000,
+        "Cyromancer of Rivellon ❄️ ",
+        2000,
+      ]}
       wrapper="span"
       speed={50}
       style={{

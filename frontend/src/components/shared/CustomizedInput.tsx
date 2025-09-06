@@ -13,7 +13,7 @@ const CustomizedInput = (props: Props) => {
       InputLabelProps={{
         style: {
           color: "white",
-          fontSize: "18px",
+          fontSize: "16px",
         },
       }}
       name={props.name}
@@ -23,7 +23,7 @@ const CustomizedInput = (props: Props) => {
       InputProps={{
         style: {
           borderRadius: 12,
-          fontSize: 18,
+          fontSize: 16,
           color: "white",
           padding: "0 16px",
         },
