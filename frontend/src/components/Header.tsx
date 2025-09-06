@@ -12,15 +12,24 @@ const Header = () => {
 
   return (
     <AppBar
-      sx={{ bgcolor: "transparent", position: "static", boxShadow: "none" }}
+      sx={{
+        bgcolor: "transparent",
+        position: "static",
+        boxShadow: "none",
+        height: "auto",
+        minHeight: "auto",
+      }}
     >
       <Toolbar
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          px: responsiveStyles.containerPadding,
-          py: responsiveStyles.elementPadding,
+          px: { xs: 1, sm: 1.5, md: 2 },
+          py: { xs: 0.25, sm: 0.5, md: 0.75 },
+          minHeight: { xs: "42px", sm: "44px", md: "48px" },
+          height: { xs: "42px", sm: "44px", md: "48px" },
+          margin: 2,
         }}
       >
         <Logo />

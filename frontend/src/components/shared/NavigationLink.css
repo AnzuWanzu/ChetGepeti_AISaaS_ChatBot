@@ -16,7 +16,7 @@
   transform: scale(1.05) translateY(-2px) !important;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   .navigation-link {
     font-size: 11px !important;
     letter-spacing: 0.5px !important;

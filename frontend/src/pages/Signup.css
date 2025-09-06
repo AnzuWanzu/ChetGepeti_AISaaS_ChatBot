@@ -1,0 +1,288 @@
+/* Animation keyframes */
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.signup-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  min-height: 80vh;
+}
+
+.signup-image-container {
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  flex: 0.4;
+  animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+.signup-image {
+  width: 310px;
+  max-width: 100%;
+}
+
+.signup-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .signup-form-container {
+    flex: 1;
+    max-width: 100%;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 991px) {
+  .signup-form-container {
+    flex: 0.6;
+    max-width: 430px;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .signup-form-container {
+    flex: 0.6;
+    max-width: 530px;
+  }
+}
+
+/* Large desktop styles */
+@media (min-width: 1200px) {
+  .signup-form-container {
+    flex: 0.6;
+    max-width: 580px;
+  }
+}
+
+.signup-form-content {
+  margin-top: -80px;
+  background: #1f3025ff;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  max-height: 100vh;
+  overflow: auto;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  animation: fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+/* Mobile form content */
+@media (max-width: 575px) {
+  .signup-form-content {
+    max-width: 330px;
+  }
+}
+
+/* Small tablet form content */
+@media (min-width: 576px) and (max-width: 767px) {
+  .signup-form-content {
+    max-width: 380px;
+  }
+}
+
+/* Tablet form content */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .signup-form-content {
+    max-width: 460px;
+  }
+}
+
+/* Large desktop form content */
+@media (min-width: 1200px) {
+  .signup-form-content {
+    max-width: 500px;
+  }
+}
+
+.signup-form-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Mobile form inner */
+@media (max-width: 575px) {
+  .signup-form-inner {
+    gap: 4px;
+    padding: 10px 12px;
+  }
+}
+
+/* Small tablet form inner */
+@media (min-width: 576px) and (max-width: 767px) {
+  .signup-form-inner {
+    gap: 6px;
+    padding: 12px 14px;
+  }
+}
+
+/* Tablet form inner */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .signup-form-inner {
+    gap: 8px;
+    padding: 14px 16px;
+  }
+}
+
+/* Large desktop form inner */
+@media (min-width: 1200px) {
+  .signup-form-inner {
+    gap: 10px;
+    padding: 16px 18px;
+  }
+}
+
+.signup-title {
+  text-align: center;
+  font-weight: 700;
+  color: white;
+}
+
+/* Mobile title */
+@media (max-width: 575px) {
+  .signup-title {
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+}
+
+/* Small tablet title */
+@media (min-width: 576px) and (max-width: 767px) {
+  .signup-title {
+    font-size: 24px;
+    margin-bottom: 0px;
+  }
+}
+
+/* Tablet title */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .signup-title {
+    font-size: 30px;
+    margin-bottom: 2px;
+  }
+}
+
+/* Large desktop title */
+@media (min-width: 1200px) {
+  .signup-title {
+    font-size: 35px;
+    margin-bottom: 2px;
+  }
+}
+
+.signup-button {
+  width: 100%;
+  font-weight: 600;
+  background-color: #3c644dff !important;
+}
+
+.signup-button:hover {
+  background-color: #4e8069ff !important;
+  color: white !important;
+}
+
+/* Mobile button */
+@media (max-width: 575px) {
+  .signup-button {
+    padding: 12px 6px !important;
+    margin-top: 4px !important;
+    height: 34px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Small tablet button */
+@media (min-width: 576px) and (max-width: 767px) {
+  .signup-button {
+    padding: 16px 8px !important;
+    margin-top: 6px !important;
+    height: 38px !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Tablet button */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .signup-button {
+    padding: 20px 8px !important;
+    margin-top: 8px !important;
+    height: 42px !important;
+    border-radius: 8px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* Large desktop button */
+@media (min-width: 1200px) {
+  .signup-button {
+    padding: 24px 10px !important;
+    margin-top: 8px !important;
+    height: 46px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Hide image container on mobile and small tablet */
+@media (max-width: 767px) {
+  .signup-image-container {
+    display: none !important;
+  }
+}
+
+/* Show image container on desktop */
+@media (min-width: 768px) {
+  .signup-image-container {
+    display: flex !important;
+  }
+}

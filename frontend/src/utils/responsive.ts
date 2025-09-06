@@ -92,29 +92,49 @@ export const createResponsiveValue = <T>(
 
 export const getNavigationStyles = () => ({
   mobile: {
-    fontSize: "11px",
-    padding: "6px 12px",
-    minWidth: "60px",
-    margin: "0 2px",
-    letterSpacing: "0.5px",
+    fontSize: "10px",
+    padding: "4px 8px",
+    minWidth: "50px",
+    margin: "0 1px",
+    letterSpacing: "0.4px",
   },
   tablet: {
+    fontSize: "11px",
+    padding: "6px 12px",
+    minWidth: "65px",
+    margin: "0 2px",
+    letterSpacing: "0.6px",
+  },
+  desktop: {
     fontSize: "12px",
     padding: "8px 16px",
     minWidth: "80px",
     margin: "0 4px",
     letterSpacing: "0.8px",
   },
-  desktop: {
-    fontSize: "14px",
-    padding: "12px 24px",
-    minWidth: "100px",
-    margin: "0 8px",
-    letterSpacing: "1px",
-  },
 });
 
 export const getChatStyles = () => ({
+  mainContainer: {
+    display: "flex",
+    flex: 1,
+    width: "100%",
+    maxWidth: "100vw",
+    height: "calc(100vh - 64px)",
+    gap: responsivePatterns.spacing.gap.medium,
+    padding: responsivePatterns.spacing.containerPadding,
+    boxSizing: "border-box",
+    overflow: "hidden",
+  },
+  chatArea: {
+    display: "flex",
+    flex: createResponsiveValue(1, 1, 0.8),
+    flexDirection: "column",
+    height: "100%",
+    maxHeight: "100%",
+    boxSizing: "border-box",
+    overflow: "hidden",
+  },
   container: {
     padding: responsivePatterns.spacing.containerPadding,
     gap: responsivePatterns.spacing.gap.medium,

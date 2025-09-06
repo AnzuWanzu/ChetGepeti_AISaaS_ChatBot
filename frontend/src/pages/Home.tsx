@@ -6,7 +6,16 @@ const Home = () => {
   const theme = useTheme();
   const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <Box width={"100%"} height={"100%"}>
+    <Box
+      width={"100%"}
+      height={"100%"}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -14,19 +23,12 @@ const Home = () => {
           flexDirection: "column",
           alignItems: "center",
           mx: "auto",
+          flex: 1,
+          justifyContent: "center",
+          maxWidth: "90%",
         }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-            px: { xs: 2, sm: 3, md: 4 },
-            py: { xs: 2, sm: 3, md: 4 },
-          }}
-        >
+        <Box>
           <TypingAnimation />
         </Box>
         <Box

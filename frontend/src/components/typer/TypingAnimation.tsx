@@ -7,9 +7,9 @@ const TypingAnimation = () => {
   const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
   const getFontSize = () => {
-    if (isMobile) return "28px";
-    if (isTablet) return "38px";
-    return "50px";
+    if (isMobile) return "16px";
+    if (isTablet) return "28px";
+    return "37px";
   };
 
   return (

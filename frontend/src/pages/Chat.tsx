@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { useRef, useEffect, useState } from "react";
 import { useChat } from "../hooks/useChat";
+import { getChatStyles } from "../utils/responsive";
 import ChatSidebar from "../components/chat/ChatSidebar";
 import ChatHeader from "../components/chat/ChatHeader";
 import ChatMessages from "../components/chat/ChatMessages";
@@ -11,6 +12,8 @@ const Chat = () => {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const [inputValue, setInputValue] = useState("");
+
+  const chatStyles = getChatStyles();
 
   const {
     chatMessages,
@@ -42,31 +45,12 @@ const Chat = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flex: 1,
-        width: "100%",
-        height: "calc(100vh - 90px)",
-        gap: 2,
-        p: 2,
-        boxSizing: "border-box",
-      }}
-    >
+    <Box sx={chatStyles.mainContainer}>
       {/* Sidebar */}
       <ChatSidebar onDeleteChats={handleDeleteChats} />
 
       {/* Main Chat Area */}
-      <Box
-        sx={{
-          display: "flex",
-          flex: { md: 0.8, xs: 1, sm: 1 },
-          flexDirection: "column",
-          height: "100%",
-          boxSizing: "border-box",
-          overflow: "hidden",
-        }}
-      >
+      <Box sx={chatStyles.chatArea}>
         {/* Header */}
         <ChatHeader />
 

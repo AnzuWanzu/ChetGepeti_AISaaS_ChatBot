@@ -1,0 +1,287 @@
+/* Animation keyframes */
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.login-page {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  min-height: 80vh;
+}
+
+.login-image-container {
+  margin-top: -40px;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  flex: 0.4;
+  animation: slideInFromLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+.login-image {
+  width: 290px;
+  max-width: 100%;
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  animation: slideInFromRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .login-form-container {
+    flex: 1;
+    max-width: 100%;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 991px) {
+  .login-form-container {
+    flex: 0.6;
+    max-width: 450px;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .login-form-container {
+    flex: 0.6;
+    max-width: 550px;
+  }
+}
+
+/* Large desktop styles */
+@media (min-width: 1200px) {
+  .login-form-container {
+    flex: 0.6;
+    max-width: 600px;
+  }
+}
+
+.login-form-content {
+  background: #202934ff;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  max-height: 100vh;
+  overflow: auto;
+  margin: 0;
+  animation: fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+/* Mobile form content */
+@media (max-width: 575px) {
+  .login-form-content {
+    max-width: 340px;
+  }
+}
+
+/* Small tablet form content */
+@media (min-width: 576px) and (max-width: 767px) {
+  .login-form-content {
+    max-width: 400px;
+  }
+}
+
+/* Tablet form content */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .login-form-content {
+    max-width: 480px;
+  }
+}
+
+/* Large desktop form content */
+@media (min-width: 1200px) {
+  .login-form-content {
+    max-width: 520px;
+  }
+}
+
+.login-form-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Mobile form inner */
+@media (max-width: 575px) {
+  .login-form-inner {
+    gap: 6px;
+    padding: 12px 14px;
+  }
+}
+
+/* Small tablet form inner */
+@media (min-width: 576px) and (max-width: 767px) {
+  .login-form-inner {
+    gap: 8px;
+    padding: 14px 16px;
+  }
+}
+
+/* Tablet form inner */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .login-form-inner {
+    gap: 10px;
+    padding: 16px 18px;
+  }
+}
+
+/* Large desktop form inner */
+@media (min-width: 1200px) {
+  .login-form-inner {
+    gap: 12px;
+    padding: 18px 20px;
+  }
+}
+
+.login-title {
+  text-align: center;
+  font-weight: 700;
+  color: white;
+}
+
+/* Mobile title */
+@media (max-width: 575px) {
+  .login-title {
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+}
+
+/* Small tablet title */
+@media (min-width: 576px) and (max-width: 767px) {
+  .login-title {
+    font-size: 24px;
+    margin-bottom: 2px;
+  }
+}
+
+/* Tablet title */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .login-title {
+    font-size: 30px;
+    margin-bottom: 4px;
+  }
+}
+
+/* Large desktop title */
+@media (min-width: 1200px) {
+  .login-title {
+    font-size: 35px;
+    margin-bottom: 6px;
+  }
+}
+
+.login-button {
+  width: 100%;
+  font-weight: 600;
+  background-color: #4c627bff !important;
+}
+
+.login-button:hover {
+  background-color: #5f7ea1ff !important;
+  color: white !important;
+}
+
+/* Mobile button */
+@media (max-width: 575px) {
+  .login-button {
+    padding: 12px 6px !important;
+    margin-top: 8px !important;
+    height: 38px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Small tablet button */
+@media (min-width: 576px) and (max-width: 767px) {
+  .login-button {
+    padding: 16px 8px !important;
+    margin-top: 10px !important;
+    height: 42px !important;
+    border-radius: 6px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* Tablet button */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .login-button {
+    padding: 20px 10px !important;
+    margin-top: 12px !important;
+    height: 46px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Large desktop button */
+@media (min-width: 1200px) {
+  .login-button {
+    padding: 24px 12px !important;
+    margin-top: 14px !important;
+    height: 50px !important;
+    border-radius: 10px !important;
+    font-size: 17px !important;
+  }
+}
+
+/* Hide image container on mobile and small tablet */
+@media (max-width: 767px) {
+  .login-image-container {
+    display: none !important;
+  }
+}
+
+/* Show image container on desktop */
+@media (min-width: 768px) {
+  .login-image-container {
+    display: flex !important;
+  }
+}

@@ -39,25 +39,26 @@ const NotFound = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "80vh",
+        height: "100%",
         width: "100%",
-        padding: 4,
+        padding: 2,
         textAlign: "center",
         position: "relative",
+        overflow: "hidden",
       }}
     >
       <Box
         sx={{
           animation: `${floating} 3s ease-in-out infinite`,
-          mb: 4,
+          mb: 1.5,
         }}
       >
         <img
           src="chet_gepeti.png"
           alt="Chet Gepeti Lost"
           style={{
-            width: "120px",
-            height: "120px",
+            width: "70px",
+            height: "70px",
             filter: "grayscale(50%) opacity(0.8)",
           }}
         />
@@ -68,12 +69,12 @@ const NotFound = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          mb: 3,
+          mb: 1.5,
           animation: `${pulse} 2s ease-in-out infinite`,
         }}
       >
         <IoWarning
-          size={60}
+          size={35}
           style={{
             color: "#4c627bff",
             filter: "drop-shadow(0 0 10px rgba(76, 98, 123, 0.5))",
@@ -83,11 +84,11 @@ const NotFound = () => {
 
       <Typography
         sx={{
-          fontSize: { xs: "60px", sm: "80px", md: "100px" },
+          fontSize: { xs: "42px", sm: "54px", md: "64px" },
           fontWeight: 900,
           color: "#4c627bff",
           fontFamily: "Roboto Slab",
-          mb: 2,
+          mb: 1,
           textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
         }}
       >
@@ -96,10 +97,10 @@ const NotFound = () => {
 
       <Typography
         sx={{
-          fontSize: { xs: "24px", sm: "28px", md: "32px" },
+          fontSize: { xs: "18px", sm: "20px", md: "24px" },
           fontWeight: 600,
           color: "white",
-          mb: 1,
+          mb: 0.5,
           fontFamily: "Work Sans",
         }}
       >
@@ -109,23 +110,23 @@ const NotFound = () => {
       {/* Description */}
       <Typography
         sx={{
-          fontSize: { xs: "16px", sm: "18px", md: "20px" },
+          fontSize: { xs: "13px", sm: "14px", md: "16px" },
           color: "rgba(255, 255, 255, 0.7)",
-          mb: 4,
-          maxWidth: "600px",
+          mb: 2.5,
+          maxWidth: "450px",
           fontFamily: "Work Sans",
-          lineHeight: 1.6,
+          lineHeight: 1.4,
         }}
       >
         Oops! Looks like Chet Gepeti couldn't find this page. It might have
-        wandered off into the realm of Divinity Original Sin 2, or perhaps it
-        never existed in the first place.
+        wandered off into the realm of Rivellon, or perhaps it never existed in
+        the first place.
       </Typography>
 
       <Box
         sx={{
           display: "flex",
-          gap: 3,
+          gap: 1.5,
           flexDirection: { xs: "column", sm: "row" },
           alignItems: "center",
         }}
@@ -135,9 +136,9 @@ const NotFound = () => {
           onClick={handleGoHome}
           startIcon={<IoHomeSharp />}
           sx={{
-            px: 4,
-            py: 1.5,
-            fontSize: "16px",
+            px: 2.5,
+            py: 0.8,
+            fontSize: "13px",
             fontWeight: 600,
             borderRadius: 2,
             bgcolor: "#4c627bff",
@@ -158,9 +159,9 @@ const NotFound = () => {
           variant="outlined"
           onClick={handleGoBack}
           sx={{
-            px: 4,
-            py: 1.5,
-            fontSize: "16px",
+            px: 2.5,
+            py: 0.8,
+            fontSize: "13px",
             fontWeight: 600,
             borderRadius: 2,
             color: "white",

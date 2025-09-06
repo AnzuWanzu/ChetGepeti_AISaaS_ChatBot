@@ -10,16 +10,16 @@ const Logo = () => {
         display: "flex",
         marginRight: "auto",
         alignItems: "center",
-        gap: "15px",
-        marginTop: "10px",
+        gap: "10px",
+        marginTop: "5px",
       }}
     >
       <Link to={"/"}>
         <img
           src="chet_gepeti.png"
           alt="chetgepeti"
-          width={"70px"}
-          height={"70px"}
+          width={"50px"}
+          height={"50px"}
           className="logo-image"
         />
       </Link>
@@ -27,8 +27,8 @@ const Logo = () => {
         sx={{
           display: { md: "block", sm: "none", xs: "none" },
           mr: "auto",
-          fontSize: "24px",
-          letterSpacing: "1px",
+          fontSize: "20px",
+          letterSpacing: "0.8px",
         }}
       >
         <span className="logo-main-text">Chet Gepeti</span>
