@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./NavigationLink.css";
+import { useResponsive } from "../../hooks/useResponsive.js";
+import { getNavigationStyles } from "../../utils/responsive.js";
 
 type Props = {
   to: string;
@@ -10,42 +12,22 @@ type Props = {
   onClick?: () => Promise<void>;
   isActive?: boolean;
   onToggle?: () => void;
-  isMobile?: boolean;
-  isTablet?: boolean;
 };
 
 const NavigationLink = (props: Props) => {
+  const { isMobile, isTablet } = useResponsive();
+  const navigationStyles = getNavigationStyles();
+
   const handleClick = () => {
     props.onToggle?.();
     props.onClick?.();
   };
 
-  const getResponsiveStyles = () => {
-    if (props.isMobile) {
-      return {
-        fontSize: "11px",
-        padding: "6px 12px",
-        minWidth: "60px",
-        margin: "0 2px",
-      };
-    }
-    if (props.isTablet) {
-      return {
-        fontSize: "12px",
-        padding: "8px 16px",
-        minWidth: "80px",
-        margin: "0 4px",
-      };
-    }
-    return {
-      fontSize: "14px",
-      padding: "12px 24px",
-      minWidth: "100px",
-      margin: "0 8px",
-    };
-  };
-
-  const responsiveStyles = getResponsiveStyles();
+  const responsiveStyles = isMobile
+    ? navigationStyles.mobile
+    : isTablet
+    ? navigationStyles.tablet
+    : navigationStyles.desktop;
 
   return (
     <Button
@@ -62,10 +44,10 @@ const NavigationLink = (props: Props) => {
         padding: responsiveStyles.padding,
         minWidth: responsiveStyles.minWidth,
         margin: responsiveStyles.margin,
+        letterSpacing: responsiveStyles.letterSpacing,
         fontWeight: 600,
         borderRadius: "8px",
         textTransform: "uppercase",
-        letterSpacing: props.isMobile ? "0.5px" : "1px",
         transition: "all 0.3s ease",
         display: "flex",
         alignItems: "center",

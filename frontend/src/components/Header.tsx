@@ -25,10 +25,10 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          px: { xs: 1, sm: 1.5, md: 2 },
-          py: { xs: 0.25, sm: 0.5, md: 0.75 },
-          minHeight: { xs: "42px", sm: "44px", md: "48px" },
-          height: { xs: "42px", sm: "44px", md: "48px" },
+          px: { xs: 0.5, sm: 1, md: 1.5 },
+          py: { xs: 0.125, sm: 0.25, md: 0.5 },
+          minHeight: { xs: "36px", sm: "38px", md: "42px" },
+          height: { xs: "36px", sm: "38px", md: "42px" },
           margin: 2,
         }}
       >

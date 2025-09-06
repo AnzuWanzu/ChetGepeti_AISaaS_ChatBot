@@ -1,0 +1,38 @@
+/* Simple Icy Styling for Chat Header */
+
+.chat-header-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.icy-model-label {
+  color: #b0e0e6;
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.icy-model-label:hover {
+  color: #87ceeb;
+  text-shadow: 0 0 8px rgba(135, 206, 235, 0.3);
+}
+
+@media (max-width: 575px) {
+  .icy-model-label {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .icy-model-label {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 768px) {
+  .icy-model-label {
+    font-size: 32px;
+  }
+}

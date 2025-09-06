@@ -1,19 +1,13 @@
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
+import "./ChatHeader.css";
 
 const ChatHeader = () => {
   return (
-    <Typography
-      sx={{
-        fontSize: { xs: "24px", sm: "28px", md: "32px" },
-        color: "white",
-        mb: 1,
-        mx: "auto",
-        fontWeight: "600",
-        textAlign: "center",
-      }}
-    >
-      Model: llama-3.1-8b-instant
-    </Typography>
+    <Box className="chat-header-container">
+      <Typography className="icy-model-label">
+        Model: llama-3.1-8b-instant
+      </Typography>
+    </Box>
   );
 };
 

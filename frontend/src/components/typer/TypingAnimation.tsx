@@ -17,7 +17,7 @@ const TypingAnimation = () => {
       sequence={[
         "Chat with Chet Gepeti",
         2000,
-        "Cyromancer of Rivellon ❄️ ",
+        "The Cyromancer of Rivellon ❄️ ",
         2000,
       ]}
       wrapper="span"

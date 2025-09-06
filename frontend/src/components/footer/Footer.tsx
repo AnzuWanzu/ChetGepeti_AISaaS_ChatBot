@@ -7,8 +7,8 @@ const Footer = () => {
         style={{
           width: "100%",
           minHeight: "10vh",
-          maxHeight: "10vh",
-          marginTop: 20,
+          maxHeight: "20vh",
+          marginTop: 10,
         }}
       >
         <p style={{ fontSize: "20px", textAlign: "center", padding: "20px" }}>

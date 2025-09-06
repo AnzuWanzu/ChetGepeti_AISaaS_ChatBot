@@ -75,7 +75,7 @@ const ChatInput = ({
         sx={{
           flex: 1,
           "& .MuiInput-root": {
-            color: disabled ? "#666" : "white",
+            color: disabled ? "#888" : "white",
             fontSize: responsiveStyles.bodyFontSize,
             "&:before": {
               borderBottom: "none",
@@ -90,7 +90,7 @@ const ChatInput = ({
           "& .MuiInput-input": {
             padding: "8px 0",
             "&::placeholder": {
-              color: disabled ? "#555" : "#999",
+              color: disabled ? "#777" : "#999",
               opacity: 1,
             },
           },
