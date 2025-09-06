@@ -13,8 +13,7 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
   fontSize = "20px",
   sx = {},
 }) => {
-  // Clean up excessive newlines while preserving intentional formatting
-  const cleanedText = text.replace(/\n{3,}/g, "\n\n"); // Replace 3+ newlines with just 2
+  const cleanedText = text.replace(/\n{3,}/g, "\n\n");
   const segments = parseMarkdownText(cleanedText);
 
   return (
@@ -23,6 +22,9 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
         fontSize,
         whiteSpace: "pre-line",
         lineHeight: 1.4,
+        margin: 0,
+        padding: 0,
+        width: "100%",
         ...sx,
       }}
     >

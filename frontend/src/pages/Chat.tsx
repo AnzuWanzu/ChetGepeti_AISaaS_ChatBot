@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useChat } from "../hooks/useChat";
 import ChatSidebar from "../components/chat/ChatSidebar";
 import ChatHeader from "../components/chat/ChatHeader";
@@ -8,8 +8,9 @@ import ChatInput from "../components/chat/ChatInput";
 import "../components/shared/ModernScrollbar.css";
 
 const Chat = () => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const [inputValue, setInputValue] = useState("");
 
   const {
     chatMessages,
@@ -33,11 +34,11 @@ const Chat = () => {
   }, [chatMessages, isThinking, typingMessageIndex]);
 
   const onSubmit = () => {
-    const content = inputRef.current?.value as string;
-    if (inputRef && inputRef.current) {
-      inputRef.current.value = "";
+    const content = inputValue.trim();
+    if (content) {
+      setInputValue("");
+      handleSubmit(content);
     }
-    handleSubmit(content);
   };
 
   return (
@@ -87,6 +88,8 @@ const Chat = () => {
           onSubmit={onSubmit}
           onStopGeneration={handleStopGeneration}
           showStopButton={typingMessageIndex !== null && !isTypingStopped}
+          value={inputValue}
+          onChange={setInputValue}
         />
       </Box>
     </Box>

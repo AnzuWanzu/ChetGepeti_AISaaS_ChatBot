@@ -79,6 +79,15 @@ const ChatItem = ({
     }
   };
 
+  const isSimpleMessage = (text: string) => {
+    const messageBlocks = extractCodeFromString(text);
+    return (
+      (!messageBlocks || messageBlocks.length <= 1) &&
+      !text.includes("\n") &&
+      text.trim().length < 100
+    );
+  };
+
   return isAssistantMessage({ content, role }) ? (
     <Box
       sx={{
@@ -89,21 +98,41 @@ const ChatItem = ({
         borderRadius: 2,
         my: 1,
         mx: 1,
+        alignItems: isSimpleMessage(content) ? "center" : "flex-start", // Center for simple messages
       }}
     >
-      <Avatar sx={{ ml: "0", width: 40, height: 40 }}>
+      <Avatar
+        sx={{
+          ml: "0",
+          width: 40,
+          height: 40,
+          flexShrink: 0,
+          mt: 0,
+        }}
+      >
         <img src="chet_gepeti.png" alt="openai" width={"30px"} />
       </Avatar>
-      <Box sx={{ flex: 1, minWidth: 0 }}>
+      <Box
+        sx={{
+          flex: 1,
+          minWidth: 0,
+          pt: 0,
+          display: "flex",
+          alignItems: isSimpleMessage(content) ? "center" : "flex-start",
+          minHeight: "40px",
+        }}
+      >
         {isTyping ? (
-          <TypingResponse
-            text={content}
-            onComplete={onTypingComplete}
-            isStopped={isStopped}
-            onStoreTruncated={onStoreTruncated}
-          />
+          <Box sx={{ pt: "2px", width: "100%" }}>
+            <TypingResponse
+              text={content}
+              onComplete={onTypingComplete}
+              isStopped={isStopped}
+              onStoreTruncated={onStoreTruncated}
+            />
+          </Box>
         ) : (
-          renderContent(content)
+          <Box sx={{ width: "100%", pt: "2px" }}>{renderContent(content)}</Box>
         )}
       </Box>
     </Box>
@@ -116,6 +145,7 @@ const ChatItem = ({
         gap: 2,
         mx: 1,
         borderRadius: 2,
+        alignItems: isSimpleMessage(content) ? "center" : "flex-start",
       }}
     >
       <Avatar
@@ -126,13 +156,26 @@ const ChatItem = ({
           width: 40,
           height: 40,
           fontSize: "16px",
+          flexShrink: 0,
+          mt: 0,
         }}
       >
         {auth?.user?.name[0]}
         {auth?.user?.name.split(" ")[1][0]}
       </Avatar>
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <FormattedText text={content} fontSize="18px" />
+      <Box
+        sx={{
+          flex: 1,
+          minWidth: 0,
+          pt: 0,
+          display: "flex",
+          alignItems: isSimpleMessage(content) ? "center" : "flex-start",
+          minHeight: "40px",
+        }}
+      >
+        <Box sx={{ width: "100%", pt: "2px" }}>
+          <FormattedText text={content} fontSize="18px" />
+        </Box>
       </Box>
     </Box>
   );

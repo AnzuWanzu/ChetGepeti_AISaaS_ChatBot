@@ -16,7 +16,17 @@ const Home = () => {
           mx: "auto",
         }}
       >
-        <Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            px: { xs: 2, sm: 3, md: 4 },
+            py: { xs: 2, sm: 3, md: 4 },
+          }}
+        >
           <TypingAnimation />
         </Box>
         <Box
