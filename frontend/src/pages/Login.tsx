@@ -61,7 +61,7 @@ const Login = () => {
         <img
           src="Chet_Login.png"
           alt="ChetWelcome"
-          style={{ width: "320px", maxWidth: "100%" }}
+          style={{ width: "300px", maxWidth: "100%" }}
         ></img>
       </Box>
       <Box

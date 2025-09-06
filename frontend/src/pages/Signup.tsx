@@ -60,7 +60,7 @@ const Signup = () => {
         <img
           src="Chet_Signin.png"
           alt="ChetWelcome"
-          style={{ width: "350px", maxWidth: "100%" }}
+          style={{ width: "310px", maxWidth: "100%" }}
         ></img>
       </Box>
       <Box
