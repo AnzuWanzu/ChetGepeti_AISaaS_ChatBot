@@ -34,8 +34,24 @@ export const aiConfig = {
       temperature: 0.5,
     },
   },
+
+  comprehensiveTriggers: [
+    "history",
+    "tutorial",
+    "step by step",
+    "explain",
+    "analysis",
+    "compare",
+    "guide",
+    "deep dive",
+    "strategy",
+    "lore",
+    "why",
+    "how",
+  ],
 };
 
+// Returns base params for the model
 export const getAIParams = (
   mode: keyof typeof aiConfig.personalityModes = "concise"
 ) => {
@@ -66,4 +82,13 @@ RESPONSE STYLE REQUIREMENTS:
 `;
 };
 
-export default aiConfig;
+export const shouldOfferComprehensiveChoice = (userInput: string): boolean => {
+  const triggers = aiConfig.comprehensiveTriggers;
+  return triggers.some((word) =>
+    userInput.toLowerCase().includes(word.toLowerCase())
+  );
+};
+
+export const generateComprehensiveOffer = (topic: string): string => {
+  return `Ah, ${topic}... A matter with considerable nuance. Would you prefer a *simple summary*, or shall I indulge you with the *full depth* of elven thoroughness?`;
+};
