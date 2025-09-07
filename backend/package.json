@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ai_saas_chatbot": "file:..",
     "bcrypt": "^6.0.0",
     "concurrently": "^9.2.1",
     "cookie-parser": "^1.4.7",

@@ -7,7 +7,12 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+
+const API_BASE_URL = import.meta.env.PROD
+  ? "/api/v1"
+  : "http://localhost:5000/api/v1";
+
+axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.withCredentials = true;
 
 const theme = createTheme({
