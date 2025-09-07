@@ -8,18 +8,17 @@ import path from "path";
 
 config();
 const app = express();
-
+const __dirname = path.resolve();
 // CORS configuration - environment dependent
-const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? process.env.FRONTEND_URL || false
-      : "http://localhost:5173",
-  credentials: true,
-};
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    })
+  );
+}
 
 //middleware
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
@@ -33,9 +32,8 @@ app.use("/api/v1", appRouter);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
+  app.get("/{*splat}", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
-
 export default app;
