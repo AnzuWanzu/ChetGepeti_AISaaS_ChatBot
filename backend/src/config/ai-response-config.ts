@@ -19,7 +19,7 @@ export const aiConfig = {
     concise: {
       instruction:
         "Keep responses brief and punchy. Get to the point quickly while maintaining your quirky personality.",
-      maxTokens: 100,
+      maxTokens: 300,
       temperature: 0.6,
     },
     detailed: {
