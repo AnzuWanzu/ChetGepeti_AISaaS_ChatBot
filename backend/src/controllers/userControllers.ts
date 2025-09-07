@@ -37,9 +37,10 @@ export const userSignup = async (
     //create cookie and store token:
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "localhost",
       signed: true,
       path: "/",
+      secure: true,
+      sameSite: "none",
     });
 
     const token = createToken(user._id.toString(), user.email, "7d");
@@ -47,11 +48,12 @@ export const userSignup = async (
     expires.setDate(expires.getDate() + 7);
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "localhost",
       expires,
       httpOnly: true,
       signed: true,
-    }); //in deployement change the localhost to domain
+      secure: true,
+      sameSite: "none",
+    });
 
     return res.status(201).json({
       message: "Sucessfully signed up a user: ",
@@ -83,9 +85,10 @@ export const userLogin = async (
     //create token and store cookie:
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
-      domain: "localhost",
       signed: true,
       path: "/",
+      secure: true,
+      sameSite: "none",
     });
 
     const token = createToken(user._id.toString(), user.email, "7d");
@@ -93,11 +96,12 @@ export const userLogin = async (
     expires.setDate(expires.getDate() + 7);
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "localhost",
       expires,
       httpOnly: true,
       signed: true,
-    }); //in deployement change the localhost to domain
+      secure: true,
+      sameSite: "none",
+    });
 
     return res.status(200).json({
       message: "Sucessfully logged in a user: ",
