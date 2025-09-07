@@ -9,14 +9,15 @@ import path from "path";
 config();
 const app = express();
 const __dirname = path.resolve();
-// CORS configuration - environment dependent
-if (process.env.NODE_ENV !== "production") {
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-    })
-  );
-}
+// CORS configuration - always set credentials: true and correct origin
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? process.env.FRONTEND_URL || false
+      : "http://localhost:5173",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 //middleware
 app.use(express.json());
