@@ -8,12 +8,12 @@
 ---
 
 <p align="center">
-  <a href="https://chetgepeti-aisaas-chatbot.onrender.com/chat" target="_blank">
+  <a href="https://chetgepeti-aisaas-chatbot.onrender.com/" target="_blank">
     <img width="1840" height="864" alt="previewChat" src="https://github.com/user-attachments/assets/661d90cb-d521-431d-960b-bf55f084d681" />
   </a>
 </p>
 <p align="center">
-  🔗 <a href="https://chetgepeti-aisaas-chatbot.onrender.com/chat" target="_blank"><b>Live Demo</b></a>
+  🔗 <a href="https://chetgepeti-aisaas-chatbot.onrender.com/" target="_blank"><b>Live Demo</b></a>
 </p>
 
 ---
