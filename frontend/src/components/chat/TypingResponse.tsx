@@ -9,6 +9,7 @@ import {
   isCodeBlock,
   formatCodeBlock,
 } from "../../utils/codeProcessing";
+import { responsivePatterns } from "../../utils/responsive";
 
 interface TypingResponseProps {
   text: string;
@@ -171,14 +172,17 @@ const TypingResponse = ({
       return (
         <Box
           style={{
-            fontSize: "18px",
+            fontSize: responsivePatterns.typography.body.md,
             color: "white",
             fontFamily: "inherit",
             lineHeight: "1.5",
             whiteSpace: "pre-wrap",
           }}
         >
-          <FormattedText text={finalText} fontSize="14px" />
+          <FormattedText
+            text={finalText}
+            fontSize={responsivePatterns.typography.body.sm}
+          />
         </Box>
       );
     }

@@ -1,5 +1,6 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import { keyframes } from "@emotion/react";
+import { responsivePatterns } from "../../utils/responsive";
 
 const dotAnimation = keyframes`
   0%, 80%, 100% {
@@ -39,7 +40,7 @@ const ThinkingAnimation = () => {
         <Typography
           sx={{
             color: "white",
-            fontSize: "18px",
+            fontSize: responsivePatterns.typography.body,
             fontStyle: "italic",
             opacity: 0.8,
           }}

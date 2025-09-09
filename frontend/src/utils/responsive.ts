@@ -1,7 +1,7 @@
 export const responsivePatterns = {
   // Typography patterns
   typography: {
-    hero: { xs: "32px", sm: "48px", md: "64px", lg: "72px" },
+    hero: { xs: "12px", sm: "14px", md: "16px", lg: "18px" },
     h1: { xs: "24px", sm: "28px", md: "32px", lg: "36px" },
     h2: { xs: "20px", sm: "24px", md: "28px", lg: "32px" },
     h3: { xs: "18px", sm: "20px", md: "24px", lg: "28px" },
@@ -92,21 +92,21 @@ export const createResponsiveValue = <T>(
 
 export const getNavigationStyles = () => ({
   mobile: {
-    fontSize: "10px",
+    fontSize: "13px",
     padding: "4px 8px",
     minWidth: "50px",
     margin: "0 5px",
     letterSpacing: "0.4px",
   },
   tablet: {
-    fontSize: "11px",
+    fontSize: "14px",
     padding: "6px 12px",
     minWidth: "65px",
     margin: "0 5px",
     letterSpacing: "0.6px",
   },
   desktop: {
-    fontSize: "12px",
+    fontSize: "14px",
     padding: "8px 16px",
     minWidth: "80px",
     margin: "0 5px",

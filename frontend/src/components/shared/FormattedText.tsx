@@ -1,4 +1,6 @@
 import React from "react";
+import { useMediaQuery } from "@mui/material";
+import { responsivePatterns } from "../../utils/responsive";
 import { Typography, Link } from "@mui/material";
 import { parseMarkdownText } from "../../utils/textFormatting.js";
 
@@ -10,16 +12,22 @@ interface FormattedTextProps {
 
 export const FormattedText: React.FC<FormattedTextProps> = ({
   text,
-  fontSize = "15px",
+  fontSize,
   sx = {},
 }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const resolvedFontSize =
+    fontSize ||
+    (isMobile
+      ? responsivePatterns.typography.body.xs
+      : responsivePatterns.typography.body.md);
   const cleanedText = text.replace(/\n{3,}/g, "\n\n");
   const segments = parseMarkdownText(cleanedText);
 
   return (
     <Typography
       sx={{
-        fontSize,
+        fontSize: resolvedFontSize,
         whiteSpace: "pre-line",
         lineHeight: 1.4,
         margin: 0,
