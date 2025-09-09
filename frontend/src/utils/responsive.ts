@@ -11,7 +11,7 @@ export const responsivePatterns = {
 
   // Spacing patterns
   spacing: {
-    containerPadding: { xs: 1, sm: 2, md: 3, lg: 4 },
+    containerPadding: { xs: 4.5, sm: 3, md: 3, lg: 4 },
     sectionPadding: { xs: 1.5, sm: 2, md: 2.5, lg: 3 },
     elementPadding: { xs: 0.5, sm: 1, md: 1.5, lg: 2 },
     containerMargin: { xs: 1, sm: 2.5, md: 5, lg: 6 },
@@ -95,21 +95,21 @@ export const getNavigationStyles = () => ({
     fontSize: "10px",
     padding: "4px 8px",
     minWidth: "50px",
-    margin: "0 1px",
+    margin: "0 5px",
     letterSpacing: "0.4px",
   },
   tablet: {
     fontSize: "11px",
     padding: "6px 12px",
     minWidth: "65px",
-    margin: "0 2px",
+    margin: "0 5px",
     letterSpacing: "0.6px",
   },
   desktop: {
     fontSize: "12px",
     padding: "8px 16px",
     minWidth: "80px",
-    margin: "0 4px",
+    margin: "0 5px",
     letterSpacing: "0.8px",
   },
 });
@@ -130,7 +130,7 @@ export const getChatStyles = () => ({
     display: "flex",
     flex: createResponsiveValue(1, 1, 0.8),
     flexDirection: "column",
-    height: "100%",
+    maxWidth: "100%",
     maxHeight: "100%",
     boxSizing: "border-box",
     overflow: "hidden",

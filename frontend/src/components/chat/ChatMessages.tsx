@@ -42,8 +42,6 @@ const ChatMessages = ({
         scrollBehavior: "smooth",
         boxSizing: "border-box",
         mb: 1,
-        px: 5,
-        py: 1,
       }}
     >
       {/* Empty State */}

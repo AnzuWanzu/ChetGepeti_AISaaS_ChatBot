@@ -27,7 +27,6 @@ const ChatSidebar = ({ onDeleteChats }: ChatSidebarProps) => {
           borderRadius: 5,
           flexDirection: "column",
           py: 4,
-          mx: 4,
           mt: 10,
         }}
       >

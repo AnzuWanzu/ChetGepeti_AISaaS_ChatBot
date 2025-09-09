@@ -21,18 +21,18 @@
 
 @media (max-width: 575px) {
   .icy-model-label {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
   .icy-model-label {
-    font-size: 28px;
+    font-size: 26px;
   }
 }
 
 @media (min-width: 768px) {
   .icy-model-label {
-    font-size: 32px;
+    font-size: 30px;
   }
 }

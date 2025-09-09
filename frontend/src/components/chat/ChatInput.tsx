@@ -5,7 +5,6 @@ import {
   useResponsiveSize,
   useResponsiveStyles,
 } from "../../hooks/useResponsive.js";
-import { responsivePatterns } from "../../utils/responsive.js";
 
 interface ChatInputProps {
   inputRef: RefObject<HTMLTextAreaElement | null>;
@@ -47,16 +46,16 @@ const ChatInput = ({
   return (
     <Box
       sx={{
-        width: responsivePatterns.layout.width.withPadding,
-        p: responsiveStyles.sectionPadding,
-        borderRadius: 3,
-        bgcolor: "#20221cff",
         display: "flex",
-        boxSizing: "border-box",
+        p: 2,
+        bgcolor: "#2e312dff",
+        gap: 2,
+        borderRadius: 2,
+        my: 1,
+        mx: 1,
         alignItems: "flex-end",
         flexShrink: 0,
-        mx: responsiveStyles.containerMargin,
-        gap: 1,
+        boxSizing: "border-box",
       }}
     >
       <TextField
@@ -65,9 +64,13 @@ const ChatInput = ({
         maxRows={6}
         minRows={1}
         value={value}
-        onChange={(e) => onChange?.(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange?.(e.target.value)
+        }
         placeholder={
-          disabled ? "AI is generating response..." : "Type your message..."
+          disabled
+            ? "Chet Gepeti is generating response..."
+            : "Type your message..."
         }
         variant="standard"
         onKeyPress={handleKeyPress}
@@ -97,7 +100,6 @@ const ChatInput = ({
         }}
       />
 
-      {/* Stop Generation Button - Only show when AI is generating */}
       {showStopButton && (
         <IconButton
           onClick={onStopGeneration}
@@ -124,8 +126,6 @@ const ChatInput = ({
           />
         </IconButton>
       )}
-
-      {/* Send Button - Disabled when AI is generating, unless stop button is shown */}
       {!showStopButton && (
         <IconButton
           onClick={handleSubmit}

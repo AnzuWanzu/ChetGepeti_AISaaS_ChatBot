@@ -1,4 +1,4 @@
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, useMediaQuery } from "@mui/material";
 import type { ChatMessage } from "../../types/chat.js";
 import { isAssistantMessage } from "../../utils/chatHelpers.js";
 import {
@@ -29,9 +29,12 @@ const ChatItem = ({
   onStoreTruncated,
 }: ChatItemProps) => {
   const auth = useAuth();
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   const renderContent = (text: string) => {
     const messageBlocks = extractCodeFromString(text);
+    const fontSize = isMobile ? "11px" : "14px";
+    const codeFontSize = isMobile ? "10px" : "12px";
 
     if (messageBlocks && messageBlocks.length > 1) {
       return messageBlocks
@@ -44,14 +47,14 @@ const ChatItem = ({
             const codeContent = formatCodeBlock(block);
 
             return (
-              <Box key={index} sx={{ my: 1.5 }}>
+              <Box key={index} sx={{ my: { xs: 2, sm: 1.5, md: 1.5 } }}>
                 <SyntaxHighlighter
                   style={coldarkDark}
                   language={language}
                   customStyle={{
                     margin: 0,
                     borderRadius: "8px",
-                    fontSize: "14px",
+                    fontSize: codeFontSize,
                     padding: "16px",
                     overflow: "auto",
                     maxWidth: "95%",
@@ -67,15 +70,15 @@ const ChatItem = ({
             );
           } else {
             return (
-              <Box key={index} sx={{ my: 1 }}>
-                <FormattedText text={block} fontSize="18px" />
+              <Box key={index} sx={{ my: { xs: 1.5, sm: 1, md: 1 } }}>
+                <FormattedText text={block} fontSize={fontSize} />
               </Box>
             );
           }
         })
         .filter(Boolean);
     } else {
-      return <FormattedText text={text} fontSize="18px" />;
+      return <FormattedText text={text} fontSize={fontSize} />;
     }
   };
 
@@ -155,7 +158,7 @@ const ChatItem = ({
           color: "white",
           width: 40,
           height: 40,
-          fontSize: "16px",
+          fontSize: isMobile ? "12px" : "14px",
           flexShrink: 0,
           mt: 0,
         }}
@@ -174,7 +177,7 @@ const ChatItem = ({
         }}
       >
         <Box sx={{ width: "100%", pt: "2px" }}>
-          <FormattedText text={content} fontSize="18px" />
+          <FormattedText text={content} fontSize={isMobile ? "14px" : "16px"} />
         </Box>
       </Box>
     </Box>

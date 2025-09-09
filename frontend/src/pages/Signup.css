@@ -189,7 +189,7 @@
 /* Mobile title */
 @media (max-width: 575px) {
   .signup-title {
-    font-size: 18px !important;
+    font-size: 16px !important;
     margin-bottom: 0px;
   }
 }
@@ -197,7 +197,7 @@
 /* Small tablet title */
 @media (min-width: 576px) and (max-width: 767px) {
   .signup-title {
-    font-size: 24px !important;
+    font-size: 22px !important;
     margin-bottom: 0px;
   }
 }
@@ -205,7 +205,7 @@
 /* Tablet title */
 @media (min-width: 768px) and (max-width: 1199px) {
   .signup-title {
-    font-size: 30px !important;
+    font-size: 28px !important;
     margin-bottom: 2px;
   }
 }
@@ -213,7 +213,7 @@
 /* Large desktop title */
 @media (min-width: 1200px) {
   .signup-title {
-    font-size: 35px !important;
+    font-size: 33px !important;
     margin-bottom: 2px;
   }
 }
@@ -236,7 +236,7 @@
     margin-top: 4px !important;
     height: 34px !important;
     border-radius: 4px !important;
-    font-size: 13px !important;
+    font-size: 11px !important;
   }
 }
 
@@ -247,7 +247,7 @@
     margin-top: 6px !important;
     height: 38px !important;
     border-radius: 6px !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
   }
 }
 
@@ -258,7 +258,7 @@
     margin-top: 8px !important;
     height: 42px !important;
     border-radius: 8px !important;
-    font-size: 15px !important;
+    font-size: 13px !important;
   }
 }
 
@@ -269,7 +269,7 @@
     margin-top: 8px !important;
     height: 46px !important;
     border-radius: 10px !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
 }
 
