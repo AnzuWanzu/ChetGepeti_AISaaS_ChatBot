@@ -135,7 +135,7 @@ const TypingResponse = ({
                       customStyle={{
                         margin: 0,
                         borderRadius: "8px",
-                        fontSize: "14px",
+                        fontSize: "13px",
                         padding: "16px",
                         overflow: "auto",
                         maxWidth: "100%",
@@ -158,7 +158,7 @@ const TypingResponse = ({
                           ? block + " [Generation stopped]"
                           : block
                       }
-                      fontSize="18px"
+                      fontSize="13px"
                     />
                   </Box>
                 );
@@ -178,7 +178,7 @@ const TypingResponse = ({
             whiteSpace: "pre-wrap",
           }}
         >
-          <FormattedText text={finalText} fontSize="18px" />
+          <FormattedText text={finalText} fontSize="14px" />
         </Box>
       );
     }

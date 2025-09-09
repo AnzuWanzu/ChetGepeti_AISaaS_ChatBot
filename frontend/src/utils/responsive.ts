@@ -5,13 +5,13 @@ export const responsivePatterns = {
     h1: { xs: "24px", sm: "28px", md: "32px", lg: "36px" },
     h2: { xs: "20px", sm: "24px", md: "28px", lg: "32px" },
     h3: { xs: "18px", sm: "20px", md: "24px", lg: "28px" },
-    body: { xs: "14px", sm: "16px", md: "18px", lg: "20px" },
+    body: { xs: "12px", sm: "14px", md: "16px", lg: "18px" },
     caption: { xs: "12px", sm: "13px", md: "14px", lg: "15px" },
   },
 
   // Spacing patterns
   spacing: {
-    containerPadding: { xs: 4.5, sm: 3, md: 3, lg: 4 },
+    containerPadding: { xs: 3, sm: 3, md: 3, lg: 4 },
     sectionPadding: { xs: 1.5, sm: 2, md: 2.5, lg: 3 },
     elementPadding: { xs: 0.5, sm: 1, md: 1.5, lg: 2 },
     containerMargin: { xs: 1, sm: 2.5, md: 5, lg: 6 },

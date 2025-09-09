@@ -7,6 +7,7 @@ import {
   isCodeBlock,
   formatCodeBlock,
 } from "../../utils/codeProcessing.js";
+import { responsivePatterns } from "../../utils/responsive";
 import { useAuth } from "../../context/AuthContext";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -31,10 +32,17 @@ const ChatItem = ({
   const auth = useAuth();
   const isMobile = useMediaQuery("(max-width:600px)");
 
+  const fontSize = isMobile
+    ? responsivePatterns.typography.body.xs
+    : responsivePatterns.typography.body.md;
+  const codeFontSize = isMobile ? "10px" : "12px";
+  // Responsive avatar size
+  const avatarSize = isMobile
+    ? responsivePatterns.components.icon.large.xs || 32
+    : responsivePatterns.components.icon.large.md || 40;
+
   const renderContent = (text: string) => {
     const messageBlocks = extractCodeFromString(text);
-    const fontSize = isMobile ? "13px" : "15px";
-    const codeFontSize = isMobile ? "11px" : "13px";
 
     if (messageBlocks && messageBlocks.length > 1) {
       return messageBlocks
@@ -107,8 +115,8 @@ const ChatItem = ({
       <Avatar
         sx={{
           ml: "0",
-          width: 40,
-          height: 40,
+          width: avatarSize,
+          height: avatarSize,
           flexShrink: 0,
           mt: 0,
         }}
@@ -156,8 +164,8 @@ const ChatItem = ({
           ml: "0",
           bgcolor: "black",
           color: "white",
-          width: 40,
-          height: 40,
+          width: avatarSize,
+          height: avatarSize,
           fontSize: isMobile ? "12px" : "14px",
           flexShrink: 0,
           mt: 0,
@@ -177,7 +185,7 @@ const ChatItem = ({
         }}
       >
         <Box sx={{ width: "100%", pt: "2px" }}>
-          <FormattedText text={content} fontSize={isMobile ? "14px" : "16px"} />
+          <FormattedText text={content} fontSize={fontSize} />
         </Box>
       </Box>
     </Box>

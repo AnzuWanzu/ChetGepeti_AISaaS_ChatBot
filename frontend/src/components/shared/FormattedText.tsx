@@ -10,7 +10,7 @@ interface FormattedTextProps {
 
 export const FormattedText: React.FC<FormattedTextProps> = ({
   text,
-  fontSize = "20px",
+  fontSize = "15px",
   sx = {},
 }) => {
   const cleanedText = text.replace(/\n{3,}/g, "\n\n");
