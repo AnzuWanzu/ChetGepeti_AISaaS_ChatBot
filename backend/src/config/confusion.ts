@@ -1,6 +1,6 @@
 export interface ConfusionState {
   repetitionCount: number;
-  confusionLevel: number; // 0 = normal, higher = more confused
+  confusionLevel: number;
 }
 
 export const updateConfusionState = (

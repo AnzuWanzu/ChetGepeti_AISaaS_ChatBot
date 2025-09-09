@@ -6,7 +6,7 @@ import {
   updateConfusionState,
   getConfusedResponseLimits,
   generateConfusedResponse,
-} from "../utils/confusion.js";
+} from "./confusion.js";
 
 export const chetGeptiCharacter = {
   name: "Chet Gepeti",
