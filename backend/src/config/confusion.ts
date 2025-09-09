@@ -31,9 +31,11 @@ export const generateConfusedResponse = (
 ): string => {
   const { maxLines, maxWords } = getConfusedResponseLimits(confusionLevel);
   let lines = baseResponse.split(/\r?\n|\.\s+/).filter(Boolean);
-  lines = lines.slice(0, maxLines);
+  const reducedLines = Math.max(1, Math.floor(maxLines * 0.7));
+  const reducedWords = Math.max(5, Math.floor(maxWords * 0.7));
+  lines = lines.slice(0, reducedLines);
   let words = lines.join(" ").split(" ");
-  words = words.slice(0, maxWords);
+  words = words.slice(0, reducedWords);
   let confusedText = words.join(" ");
   if (confusionLevel > 0) {
     confusedText += " ...I am growing perplexed by your repetition.";

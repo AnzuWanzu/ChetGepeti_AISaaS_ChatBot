@@ -35,7 +35,9 @@ const ChatItem = ({
   const fontSize = isMobile
     ? responsivePatterns.typography.body.xs
     : responsivePatterns.typography.body.md;
-  const codeFontSize = isMobile ? "10px" : "12px";
+  const codeFontSize = isMobile
+    ? responsivePatterns.typography.body.xs
+    : responsivePatterns.typography.body.sm;
   // Responsive avatar size
   const avatarSize = isMobile
     ? responsivePatterns.components.icon.large.xs || 32
@@ -61,9 +63,9 @@ const ChatItem = ({
                   language={language}
                   customStyle={{
                     margin: 0,
-                    borderRadius: "8px",
+                    borderRadius: responsivePatterns.layout.borderRadius.md,
                     fontSize: codeFontSize,
-                    padding: "16px",
+                    padding: responsivePatterns.spacing.elementPadding.md,
                     overflow: "auto",
                     maxWidth: "95%",
                     wordWrap: "break-word",
@@ -121,7 +123,11 @@ const ChatItem = ({
           mt: 0,
         }}
       >
-        <img src="chet_gepeti.png" alt="openai" width={"30px"} />
+        <img
+          src="chet_gepeti.png"
+          alt="openai"
+          width={responsivePatterns.components.icon.medium.md}
+        />
       </Avatar>
       <Box
         sx={{
@@ -166,7 +172,7 @@ const ChatItem = ({
           color: "white",
           width: avatarSize,
           height: avatarSize,
-          fontSize: isMobile ? "12px" : "14px",
+          fontSize: fontSize,
           flexShrink: 0,
           mt: 0,
         }}

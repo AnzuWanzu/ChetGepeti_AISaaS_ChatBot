@@ -62,7 +62,7 @@ export const responsivePatterns = {
     },
     icon: {
       small: { xs: "16px", sm: "18px", md: "20px" },
-      medium: { xs: "20px", sm: "22px", md: "24px" },
+      medium: { xs: "22px", sm: "23px", md: "25px" },
       large: { xs: "24px", sm: "28px", md: "32px" },
     },
   },

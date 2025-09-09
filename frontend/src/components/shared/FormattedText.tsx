@@ -31,20 +31,29 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
         whiteSpace: "pre-line",
         lineHeight: 1.4,
         margin: 0,
-        padding: 0,
+        padding: "0 12px 0 0",
+        boxSizing: "border-box",
         width: "100%",
+        textAlign: "justify",
         ...sx,
       }}
     >
       {segments.map((segment, index) => {
+        let segmentFontSize = resolvedFontSize;
+        if (segment.type === "bold")
+          segmentFontSize = `calc(${resolvedFontSize} * 1.1)`;
+        if (segment.type === "code")
+          segmentFontSize = `calc(${resolvedFontSize} * 0.9)`;
         return (
           <React.Fragment key={index}>
             {segment.type === "bold" && (
-              <strong style={{ fontWeight: 600, fontSize: "1.1em" }}>
+              <strong style={{ fontWeight: 600, fontSize: segmentFontSize }}>
                 {segment.content}
               </strong>
             )}
-            {segment.type === "italic" && <em>{segment.content}</em>}
+            {segment.type === "italic" && (
+              <em style={{ fontSize: segmentFontSize }}>{segment.content}</em>
+            )}
             {segment.type === "code" && (
               <code
                 style={{
@@ -52,7 +61,7 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
                   padding: "2px 4px",
                   borderRadius: "4px",
                   fontFamily: "monospace",
-                  fontSize: "0.9em",
+                  fontSize: segmentFontSize,
                 }}
               >
                 {segment.content}
@@ -63,7 +72,7 @@ export const FormattedText: React.FC<FormattedTextProps> = ({
                 href={segment.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ color: "#1976d2" }}
+                sx={{ color: "#1976d2", fontSize: segmentFontSize }}
               >
                 {segment.content}
               </Link>

@@ -136,8 +136,8 @@ const TypingResponse = ({
                       customStyle={{
                         margin: 0,
                         borderRadius: "8px",
-                        fontSize: "13px",
-                        padding: "16px",
+                        fontSize: responsivePatterns.typography.body.sm,
+                        padding: 16,
                         overflow: "auto",
                         maxWidth: "100%",
                         wordWrap: "break-word",
@@ -159,7 +159,7 @@ const TypingResponse = ({
                           ? block + " [Generation stopped]"
                           : block
                       }
-                      fontSize="13px"
+                      fontSize={responsivePatterns.typography.body.sm}
                     />
                   </Box>
                 );
@@ -181,7 +181,7 @@ const TypingResponse = ({
         >
           <FormattedText
             text={finalText}
-            fontSize={responsivePatterns.typography.body.sm}
+            fontSize={responsivePatterns.typography.body.md}
           />
         </Box>
       );
