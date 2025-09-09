@@ -111,7 +111,7 @@ export const useResponsiveStyles = () => {
       // Typography patterns
       headingFontSize: { xs: "24px", sm: "28px", md: "32px" },
       subheadingFontSize: { xs: "18px", sm: "22px", md: "26px" },
-      bodyFontSize: { xs: "14px", sm: "16px", md: "18px" },
+      bodyFontSize: { xs: "12px", sm: "13px", md: "15px" },
       captionFontSize: { xs: "12px", sm: "13px", md: "14px" },
 
       // Layout patterns

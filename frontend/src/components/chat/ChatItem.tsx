@@ -33,8 +33,8 @@ const ChatItem = ({
 
   const renderContent = (text: string) => {
     const messageBlocks = extractCodeFromString(text);
-    const fontSize = isMobile ? "11px" : "14px";
-    const codeFontSize = isMobile ? "10px" : "12px";
+    const fontSize = isMobile ? "13px" : "15px";
+    const codeFontSize = isMobile ? "11px" : "13px";
 
     if (messageBlocks && messageBlocks.length > 1) {
       return messageBlocks
